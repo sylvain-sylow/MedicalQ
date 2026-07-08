@@ -1,0 +1,251 @@
+{
+  "neurologie": [
+    "AVC",
+    "Accident Ischémique Transitoire",
+    "Sclérose en plaques",
+    "Maladie de Parkinson",
+    "Paralysie",
+    "Tétraplégie",
+    "Tremblement",
+    "Ictus amnésique",
+    "Infirmité motrice cérébrale",
+    "Syndrome de Guillain-Barré",
+    "Maladie de Charcot-Marie",
+    "Paraplégie spastique héréditaire",
+    "Névrite optique",
+    "Troubles amnésiques"
+  ],
+  "epilepsie": [
+    "Epilepsie"
+  ],
+  "cardiaque_ischemique": [
+    "Angor stable",
+    "Angor instable",
+    "Infarctus du myocarde",
+    "Coronaropathie",
+    "Ischémie myocardique silencieuse",
+    "Spasme coronarien"
+  ],
+  "cardiaque_non_ischemique": [
+    "Arythmie",
+    "Bicuspidie aortique",
+    "Bloc auriculo-ventriculaire",
+    "Bloc sino-auriculaire",
+    "Bradycardie sinusale",
+    "Cardiopathie rhumatismale",
+    "Coarctation de l'aorte",
+    "Coeur pulmonaire",
+    "Communication auriculo-ventriculaire",
+    "Communication interauriculaire",
+    "Communication interventriculaire",
+    "Extrasystoles auriculaires",
+    "Extrasystoles ventriculaires",
+    "Fibrillation et flutter auriculaires",
+    "Fibrillation et flutter ventriculaires",
+    "Flutter",
+    "Hypertrophie ventriculaire",
+    "Insuffisance aortique",
+    "Insuffisance cardiaque globale",
+    "Insuffisance mitrale",
+    "Insuffisance tricuspidienne",
+    "Maladie rythmique de l'oreillette",
+    "Myocardiopathies",
+    "Myocardite",
+    "Prolapsus de la valve mitrale",
+    "Souffle cervical",
+    "Souffles cardiaques",
+    "Tachycardie supraventriculaire paroxystique",
+    "Tachycardie ventriculaire paroxystique",
+    "Tétralogie de Fallot",
+    "Troubles de la conduction ventriculaire"
+  ],
+  "chirurgie_valvulaire": [
+    "Rétrécissement aortique",
+    "Rétrécissement mitral",
+    "Sclérose aortique"
+  ],
+  "transplantation_cardiaque": [
+    "Transplantation cardiaque"
+  ],
+  "apnees_sommeil": [
+    "Apnées du sommeil",
+    "Syndrome des apnées obstructives du sommeil"
+  ],
+  "hepatique": [
+    "Ascite",
+    "Cirrhose",
+    "Hépatite alcoolique",
+    "Hépatite auto-immune",
+    "Hépatite B",
+    "Hépatite C",
+    "Hépatite chronique",
+    "Hépatite toxique",
+    "Hépatites A et E",
+    "Hépatomégalie",
+    "Jaunisse",
+    "Stéatose hépatique",
+    "Transplantation hépatique"
+  ],
+  "respiratoire": [
+    "Asthme",
+    "Bronchectasie",
+    "Bronchite aiguë",
+    "Bronchite chronique",
+    "Embolie pulmonaire",
+    "Emphysème",
+    "Pneumonie",
+    "Pneumonie à éosinophiles",
+    "Pneumopathie d'hypersensibilité",
+    "Rhinite allergique"
+  ],
+  "mucoviscidose": [
+    "Mucoviscidose"
+  ],
+  "tumeurs": [
+    "Cancer bronchopulmonaire",
+    "Cancer cutané",
+    "Cancer de la prostate",
+    "Cancer de la thyroïde",
+    "Cancer du sein",
+    "Cancer du côlon",
+    "Cancer de l'estomac",
+    "Cancer de l'œsophage",
+    "Cancer du col utérin",
+    "Cancer de l'ovaire",
+    "Cancer du pancréas",
+    "Cancer du testicule",
+    "Cancer de la vessie",
+    "Cancer intracrânien",
+    "Cancer pédiatrique",
+    "Tumeurs bronchopulmonaires",
+    "Tumeurs de l'endomètre",
+    "Tumeurs des os et des cartilages",
+    "(+ ~70 autres localisations cancéreuses)"
+  ],
+  "lymphome_hemopathie": [
+    "Leucémies",
+    "Lymphomes",
+    "Greffe de moelle osseuse"
+  ],
+  "psychisme": [
+    "Boulimie",
+    "Délirium",
+    "Démence",
+    "Dépression post-natale",
+    "Episode psychotique bref",
+    "Retard mental",
+    "Schizophrénie",
+    "Stress et troubles de l'adaptation",
+    "Tentative de suicide",
+    "Trouble schizo-affectif",
+    "Troubles affectifs",
+    "Troubles anxieux",
+    "Troubles bipolaires",
+    "Troubles de l'humeur",
+    "Troubles de la personnalité",
+    "Troubles délirants",
+    "Troubles dissociatifs",
+    "Troubles du sommeil",
+    "Troubles psycho-sexuels",
+    "Syndrome de Gilles de la Tourette (partiel)"
+  ],
+  "diabete": [
+    "Diabète type 1/2/gestationnel",
+    "Intolérance au glucose",
+    "Trouble de la glycémie à jeun"
+  ],
+  "diabete_assure": [
+    "Diabète (déclaration assuré, capital ≤ seuil)"
+  ],
+  "dialyse": [
+    "Dialyse"
+  ],
+  "transplantation_renale": [
+    "Dialyse rénale",
+    "Greffe rénale"
+  ],
+  "lithiase": [
+    "Calculs rénaux",
+    "Lithiase vésicale"
+  ],
+  "thyroide": [
+    "Goitre",
+    "Hyperthyroïdie",
+    "Hypothyroïdie",
+    "Thyroïdite"
+  ],
+  "prostate_urinaire": [
+    "Hypertrophie prostatique",
+    "Infections des voies urinaires",
+    "Lithiase prostatique",
+    "Maladie polykystique rénale familiale",
+    "Néphrectomie",
+    "Néphrite interstitielle",
+    "Néphropathie",
+    "Néphrosclérose",
+    "Prostatite",
+    "Protéinurie",
+    "Pyélonéphrite",
+    "Rein en éponge",
+    "Rétrécissement de l'urètre"
+  ],
+  "obesite": [
+    "Obésité",
+    "Surpoids",
+    "Traitement chirurgical de l'obésité"
+  ],
+  "osteo_articulaire": [
+    "Ostéo-arthrite traumatique",
+    "Ostéo-arthropathie hypertrophiante pneumique",
+    "Ostéochondrose",
+    "Ostéomalacie",
+    "Ostéomyélite",
+    "Ostéoporose",
+    "Spondylarthrite ankylosante",
+    "Spondylarthrose cervicale"
+  ],
+  "crohn_colite": [
+    "Maladie de Crohn",
+    "Rectocolite hémorragique"
+  ],
+  "hypertension": [
+    "Hypertension artérielle"
+  ],
+  "generique": [
+    "Abcès (tous types)",
+    "Anévrisme aortique",
+    "Anévrisme artériel",
+    "Arrêt cardiaque",
+    "Cardiomégalie",
+    "Dissection aortique",
+    "Douleurs thoraciques",
+    "Embolie et thrombose artérielles",
+    "Fibrome utérin",
+    "Fibromyalgie",
+    "Fibrose pulmonaire",
+    "Glomérulonéphrite chronique",
+    "Hématurie",
+    "Hémochromatose",
+    "Hémophilie",
+    "Hémorragie sous-arachnoïdienne",
+    "Hernie hiatale",
+    "Hydronéphrose",
+    "Hypercholestérolémie (bilan lipidique)",
+    "Hypertriglycéridémie (bilan lipidique)",
+    "Hyperuricémie",
+    "Kystes (tous types)",
+    "Lupus érythémateux",
+    "Pancréatite aiguë/chronique",
+    "Polype (tous types)",
+    "Sarcoïdose",
+    "Séropositivité VIH (bilan sérologies)",
+    "Splénectomie",
+    "Splénomégalie",
+    "Syndrome de Raynaud",
+    "Syndrome du canal carpien",
+    "Thrombose veineuse",
+    "Traumatisme crânien",
+    "Tuberculose (bilan sérologies)",
+    "(+ ~60 autres pathologies rares à bilan simple)"
+  ]
+}

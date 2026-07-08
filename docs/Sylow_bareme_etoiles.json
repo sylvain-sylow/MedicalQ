@@ -1,205 +1,228 @@
 {
-  "version": "1.0-draft",
+  "version": "1.1",
   "generatedFrom": "Sylow_bareme_etoiles.xlsx",
+  "alignedWith": "Sylow_trame_scoring_etoiles.md",
   "scale": {
     "best": 5,
     "worst": 1
   },
+  "tolerance": {
+    "s5": "value<=T*1.15",
+    "s4": "<=T*1.30",
+    "s3": "<=T*1.50",
+    "s2": "<=T*1.75",
+    "s1": ">T*1.75"
+  },
   "aggregation": {
     "theme": "min",
-    "global": "geometric_mean"
+    "global": "geometric_mean",
+    "rounding": "0.5 star"
+  },
+  "testCase": {
+    "source": "trame §4.2",
+    "notes": [
+      5,
+      5,
+      4,
+      5,
+      4,
+      5,
+      5,
+      5,
+      5
+    ],
+    "product": 1250000,
+    "globalExact": 4.76,
+    "note": "La trame écrit 500000/4.79 ; produit réel 1250000/4.76 — écart arithmétique à confirmer, conclusion 5★ inchangée."
   },
   "rules": [
     {
       "id": "N1_IMC",
-      "theme": "Corpulence",
-      "label": "Votre taille et votre poids (IMC calculé)",
-      "type": "numeric_high_bad",
+      "theme": "Poids et silhouette",
+      "label": "Votre taille et votre poids (IMC)",
+      "type": "numeric_threshold",
       "pendingValidation": true,
-      "notes": "5★ = 30×1,15. Surpoids/obésité. Maigreur (IMC bas) à traiter séparément (voir N1_IMC_BAS).",
-      "unit": "IMC (kg/m²) — haut défavorable",
-      "bounds": {
-        "s5": 34.5,
-        "s4": 37.0,
-        "s3": 40.0,
-        "s2": 45.0
-      },
-      "tolerancePct": 15.0
-    },
-    {
-      "id": "N1_IMC_BAS",
-      "theme": "Corpulence",
-      "label": "IMC — versant maigreur",
-      "type": "numeric_low_bad",
-      "pendingValidation": true,
-      "notes": "Risque lié à la dénutrition. Seuils à valider par le médecin conseil.",
-      "unit": "IMC (kg/m²) — bas défavorable",
-      "bounds": {
-        "s5": 18.5,
-        "s4": 17.0,
-        "s3": 16.0,
-        "s2": 15.0
-      },
-      "tolerancePct": 0
-    },
-    {
-      "id": "N1_POIDS_VAR",
-      "theme": "Corpulence",
-      "label": "Votre poids a-t-il varié de plus de 5 kg sur 12 mois ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Variation involontaire = signal ; module médecin peut affiner.",
-      "onNo": 5,
-      "onYes": 3
-    },
-    {
-      "id": "N1_TABAC",
-      "theme": "Hygiène de vie",
-      "label": "Combien de cigarettes fumez-vous par jour ?",
-      "type": "numeric_high_bad",
-      "pendingValidation": true,
-      "notes": "Proposition. Distinguer non-fumeur / ancien fumeur si besoin.",
-      "unit": "cig/jour — haut défavorable",
-      "bounds": {
-        "s5": 0.0,
-        "s4": 5.0,
-        "s3": 15.0,
-        "s2": 25.0
-      },
-      "tolerancePct": 0
-    },
-    {
-      "id": "N1_ALCOOL",
-      "theme": "Hygiène de vie",
-      "label": "Combien de verres d'alcool par jour ?",
-      "type": "numeric_high_bad",
-      "pendingValidation": true,
-      "notes": "1 verre standard ≈ 10 g. Convertir cl par type de boisson en verres.",
-      "unit": "verres/jour — haut défavorable",
-      "bounds": {
-        "s5": 1.0,
-        "s4": 2.0,
-        "s3": 3.0,
-        "s2": 5.0
-      },
-      "tolerancePct": 0
-    },
-    {
-      "id": "N1_STUP",
-      "theme": "Hygiène de vie",
-      "label": "Usage de stupéfiants hors prescription ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Nature/ancienneté affinées au niveau 3.",
-      "onNo": 5,
-      "onYes": 2
+      "notes": "T=30 (repère OMS obésité). 5★≤34,5. Versant maigreur à traiter à part.",
+      "unit": "IMC kg/m² (haut défavorable)",
+      "T": 30.0,
+      "tiers": {
+        "s5": "T*1.15",
+        "s4": "T*1.30",
+        "s3": "T*1.50",
+        "s2": "T*1.75",
+        "s1": ">T*1.75"
+      }
     },
     {
       "id": "N1_TA_SYS",
-      "theme": "Cardio-vasculaire",
-      "label": "Tension artérielle habituelle — systolique",
-      "type": "numeric_high_bad",
+      "theme": "Tension artérielle",
+      "label": "Tension habituelle — systolique",
+      "type": "numeric_threshold",
       "pendingValidation": true,
-      "notes": "Auto-déclaration ; 5★≈140 (avec tolérance). À valider.",
-      "unit": "mmHg — haut défavorable",
-      "bounds": {
-        "s5": 140.0,
-        "s4": 150.0,
-        "s3": 160.0,
-        "s2": 180.0
-      },
-      "tolerancePct": 15.0
+      "notes": "T=140. Cas test : 138<140 → 5★.",
+      "unit": "mmHg (haut défavorable)",
+      "T": 140.0,
+      "tiers": {
+        "s5": "T*1.15",
+        "s4": "T*1.30",
+        "s3": "T*1.50",
+        "s2": "T*1.75",
+        "s1": ">T*1.75"
+      }
     },
     {
       "id": "N1_TA_DIA",
-      "theme": "Cardio-vasculaire",
-      "label": "Tension artérielle habituelle — diastolique",
-      "type": "numeric_high_bad",
+      "theme": "Tension artérielle",
+      "label": "Tension habituelle — diastolique",
+      "type": "numeric_threshold",
       "pendingValidation": true,
-      "notes": "À valider par le médecin conseil.",
-      "unit": "mmHg — haut défavorable",
-      "bounds": {
-        "s5": 90.0,
-        "s4": 95.0,
-        "s3": 100.0,
-        "s2": 110.0
-      },
-      "tolerancePct": 15.0
+      "notes": "T=90. Cas test : 88<90 → 5★.",
+      "unit": "mmHg (haut défavorable)",
+      "T": 90.0,
+      "tiers": {
+        "s5": "T*1.15",
+        "s4": "T*1.30",
+        "s3": "T*1.50",
+        "s2": "T*1.75",
+        "s1": ">T*1.75"
+      }
     },
     {
-      "id": "N1_ARRET",
-      "theme": "Antécédents",
-      "label": "Arrêt(s) de travail > 21 jours (fenêtre retenue) ?",
+      "id": "N1_TABAC",
+      "theme": "Tabac",
+      "label": "Combien de cigarettes par jour ?",
+      "type": "numeric_grid",
+      "pendingValidation": true,
+      "notes": "Grille trame §2.3 : 0=5★ · 1-9=4★ · 10-19=3★ · 20-29=2★ · ≥30=1★.",
+      "gridNote": "Grille trame §2.3 : 0=5★ · 1-9=4★ · 10-19=3★ · 20-29=2★ · ≥30=1★."
+    },
+    {
+      "id": "N1_ALCOOL",
+      "theme": "Alcool et autres consommations",
+      "label": "Combien de verres d'alcool par semaine ?",
+      "type": "numeric_grid",
+      "pendingValidation": true,
+      "notes": "Grille trame §2.4 : ≤16=5★ · 17-24=4★ · 25-34=3★ · 35-49=2★ · ≥50=1★ (seuil adapté selon sexe).",
+      "gridNote": "Grille trame §2.4 : ≤16=5★ · 17-24=4★ · 25-34=3★ · 35-49=2★ · ≥50=1★ (seuil adapté selon sexe)."
+    },
+    {
+      "id": "N1_SUBST",
+      "theme": "Alcool et autres consommations",
+      "label": "Autres substances (cannabis, autres) ?",
+      "type": "qualitative_grid",
+      "pendingValidation": true,
+      "notes": "Non=5★ · Occasionnel=3★ · Régulier=1★.",
+      "gridNote": "Non=5★ · Occasionnel=3★ · Régulier=1★."
+    },
+    {
+      "id": "N1_SPORT",
+      "theme": "Activité physique et loisirs",
+      "label": "Sport à risque / compétition ?",
+      "type": "qualitative_grid",
+      "pendingValidation": true,
+      "notes": "Aucun risque=5★ · loisir régulier=4★ · intensif/compétition=3★ · extrême régulier=2★.",
+      "gridNote": "Aucun risque=5★ · loisir régulier=4★ · intensif/compétition=3★ · extrême régulier=2★."
+    },
+    {
+      "id": "N1_VOYAGE",
+      "theme": "Voyages et environnement",
+      "label": "Séjour >3 mois hors zone de référence ?",
+      "type": "qualitative_grid",
+      "pendingValidation": true,
+      "notes": "Non=5★ · touristique=4★ · prolongé/zone à risque=3★.",
+      "gridNote": "Non=5★ · touristique=4★ · prolongé/zone à risque=3★."
+    },
+    {
+      "id": "N1_ARRET_DUREE",
+      "theme": "Vie professionnelle et arrêts",
+      "label": "Arrêt de travail le plus long (5 ans) ?",
+      "type": "numeric_threshold",
+      "pendingValidation": true,
+      "notes": "T=21 jours. Cas test : 10≤24 → 5★.",
+      "unit": "jours (haut défavorable)",
+      "T": 21.0,
+      "tiers": {
+        "s5": "T*1.15",
+        "s4": "T*1.30",
+        "s3": "T*1.50",
+        "s2": "T*1.75",
+        "s1": ">T*1.75"
+      }
+    },
+    {
+      "id": "N1_ARRET_COURS",
+      "theme": "Vie professionnelle et arrêts",
+      "label": "Êtes-vous en arrêt de travail actuellement ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Motif/durée collectés en détail.",
+      "notes": "Non=5★ · Oui=3★.",
       "onNo": 5,
       "onYes": 3
     },
     {
-      "id": "N1_ALD100",
-      "theme": "Antécédents",
-      "label": "Prise en charge à 100 % (ALD) ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Pathologie ALD affine le score via sa rubrique.",
-      "onNo": 5,
-      "onYes": 2
-    },
-    {
       "id": "N1_INVAL",
-      "theme": "Antécédents",
-      "label": "Pension/rente d'invalidité ou AAH ?",
+      "theme": "Vie professionnelle et arrêts",
+      "label": "Pension / rente / allocation handicap ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Taux/catégorie à préciser.",
-      "onNo": 5,
-      "onYes": 2
-    },
-    {
-      "id": "N1_VIH_HEP",
-      "theme": "Infectieux",
-      "label": "Sérologie VIH ou hépatite positive ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Répondre OUI uniquement si résultat positif.",
+      "notes": "Non=5★ · Oui=1★ (proposition, pas règle actuarielle).",
       "onNo": 5,
       "onYes": 1
     },
     {
-      "id": "N1_HOSPI_PREV",
-      "theme": "Antécédents",
-      "label": "Hospitalisation ou intervention programmée ?",
+      "id": "N1_REFUS",
+      "theme": "Vie professionnelle et arrêts",
+      "label": "Refus / ajournement / majoration déjà subi ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★.",
+      "notes": "Non=5★ · Oui=2★.",
+      "onNo": 5,
+      "onYes": 2
+    },
+    {
+      "id": "N1_ALD100",
+      "theme": "Suivi médical récent",
+      "label": "Prise en charge à 100 % (ALD) ?",
+      "type": "binary",
+      "pendingValidation": true,
+      "notes": "Non=5★ · Oui=3★.",
       "onNo": 5,
       "onYes": 3
+    },
+    {
+      "id": "N1_EXAM_PREV",
+      "theme": "Suivi médical récent",
+      "label": "Examen / hospitalisation prévu (6 mois) ?",
+      "type": "binary",
+      "pendingValidation": true,
+      "notes": "Non=5★ · Oui=4★.",
+      "onNo": 5,
+      "onYes": 4
     },
     {
       "id": "N2_INFECT",
-      "theme": "Infectieux",
-      "label": "Maladie infectieuse ou parasitaire déclarée ?",
+      "theme": "Infections",
+      "label": "Infection sévère/longue (tuberculose, VIH, IST…) ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Gravité affinée par le module niveau 3 (seuils 🔻).",
+      "notes": "NON=5★. Sévérité affinée niveau 3.",
       "onNo": 5,
-      "onYes": 3
+      "onYes": 2
     },
     {
       "id": "N2_ENDOC",
-      "theme": "Endocrinien / métabolisme",
-      "label": "Diabète, thyroïde, cholestérol… déclaré ?",
+      "theme": "Diabète, cholestérol, thyroïde",
+      "label": "Diabète, cholestérol élevé, thyroïde, goutte ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Diabète : type/équilibre affinent le score.",
+      "notes": "NON=5★.",
       "onNo": 5,
       "onYes": 2
     },
     {
       "id": "N2_SANG",
       "theme": "Sang",
-      "label": "Maladie du sang déclarée ?",
+      "label": "Anémie, coagulation, maladie du sang ?",
       "type": "binary",
       "pendingValidation": true,
       "notes": "NON=5★.",
@@ -208,28 +231,18 @@
     },
     {
       "id": "N2_PSY",
-      "theme": "Psychiatrie",
-      "label": "Trouble psychique ou psychiatrique déclaré ?",
+      "theme": "Moral et santé mentale",
+      "label": "Anxiété, dépression, troubles de l'humeur ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. QUESTION SENSIBLE : ton neutre, pas de gamification.",
+      "notes": "NON=5★. SENSIBLE : ton neutre, pas de gamification.",
       "onNo": 5,
       "onYes": 2
     },
     {
-      "id": "N2_SOMMEIL",
-      "theme": "Sommeil",
-      "label": "Trouble du sommeil déclaré ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Apnée du sommeil : sévérité à affiner.",
-      "onNo": 5,
-      "onYes": 3
-    },
-    {
       "id": "N2_NEURO",
-      "theme": "Neurologie / muscles",
-      "label": "Maladie neurologique ou musculaire déclarée ?",
+      "theme": "Cerveau et système nerveux",
+      "label": "AVC, épilepsie, SEP, paralysie ?",
       "type": "binary",
       "pendingValidation": true,
       "notes": "NON=5★.",
@@ -238,48 +251,48 @@
     },
     {
       "id": "N2_ORL_OPH",
-      "theme": "ORL / yeux",
-      "label": "Affection ORL ou ophtalmologique déclarée ?",
+      "theme": "Oreilles, nez, gorge, yeux",
+      "label": "Surdité, vertiges, vue (cataracte, glaucome) ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Souvent bénin ; à pondérer.",
+      "notes": "NON=5★. Souvent bénin.",
       "onNo": 5,
       "onYes": 4
     },
     {
       "id": "N2_CARDIO",
-      "theme": "Cardio-vasculaire",
-      "label": "Maladie cardio-vasculaire déclarée ?",
+      "theme": "Cœur et circulation",
+      "label": "Souffle, tension, infarctus, rythme irrégulier ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. HTA traitée, coronaropathie… affinées.",
+      "notes": "NON=5★. Cas test : coché mais aucun seuil interne → 5★.",
       "onNo": 5,
       "onYes": 2
     },
     {
       "id": "N2_RESP",
-      "theme": "Respiratoire",
-      "label": "Maladie respiratoire déclarée ?",
+      "theme": "Respiration",
+      "label": "Bronchite chronique, asthme, apnée du sommeil ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Asthme : fréquence des crises.",
+      "notes": "NON=5★.",
       "onNo": 5,
       "onYes": 3
     },
     {
       "id": "N2_DIGEST",
-      "theme": "Digestif",
-      "label": "Maladie de l'appareil digestif déclarée ?",
+      "theme": "Digestion",
+      "label": "Estomac, foie, hépatite, MICI ?",
       "type": "binary",
       "pendingValidation": true,
-      "notes": "NON=5★. Hépatite/cirrhose plus lourdes.",
+      "notes": "NON=5★.",
       "onNo": 5,
       "onYes": 3
     },
     {
-      "id": "N2_URO_GEN",
-      "theme": "Urinaire / génital",
-      "label": "Affection urinaire ou génitale déclarée ?",
+      "id": "N2_URO",
+      "theme": "Reins et voies urinaires",
+      "label": "Calculs, protéinurie, prostate ?",
       "type": "binary",
       "pendingValidation": true,
       "notes": "NON=5★.",
@@ -289,7 +302,7 @@
     {
       "id": "N2_PEAU",
       "theme": "Peau",
-      "label": "Maladie de la peau déclarée ?",
+      "label": "Eczéma, psoriasis, grain de beauté suspect ?",
       "type": "binary",
       "pendingValidation": true,
       "notes": "NON=5★. Généralement bénin.",
@@ -298,68 +311,8 @@
     },
     {
       "id": "N2_OSTEO",
-      "theme": "Ostéo-articulaire",
-      "label": "Douleurs/maladies des os et articulations déclarées ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Hernie discale, arthrose…",
-      "onNo": 5,
-      "onYes": 3
-    },
-    {
-      "id": "N2_AUTOIMM",
-      "theme": "Auto-immun / tumeurs",
-      "label": "Maladie inflammatoire, auto-immune ou tumeur déclarée ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Cancer : voir droit à l'oubli AERAS.",
-      "onNo": 5,
-      "onYes": 1
-    },
-    {
-      "id": "MV_VOYAGE",
-      "theme": "Modes de vie",
-      "label": "Séjours hors zone géographique de référence ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Destination/durée affinent.",
-      "onNo": 5,
-      "onYes": 4
-    },
-    {
-      "id": "MV_AERIEN",
-      "theme": "Modes de vie",
-      "label": "Pilote ou passager d'aéronef privé ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Questionnaire activité spécifique.",
-      "onNo": 5,
-      "onYes": 3
-    },
-    {
-      "id": "MV_2ROUES",
-      "theme": "Modes de vie",
-      "label": "Deux-roues motorisé pour vos déplacements ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Cylindrée/kilométrage.",
-      "onNo": 5,
-      "onYes": 4
-    },
-    {
-      "id": "MV_SPORT",
-      "theme": "Modes de vie",
-      "label": "Sport à risque (plongée, alpinisme, sports méca…) ?",
-      "type": "binary",
-      "pendingValidation": true,
-      "notes": "NON=5★. Niveau/compétition affinent.",
-      "onNo": 5,
-      "onYes": 3
-    },
-    {
-      "id": "MV_DANGER",
-      "theme": "Modes de vie",
-      "label": "Activité dangereuse ou profession à risque ?",
+      "theme": "Os, articulations et dos",
+      "label": "Arthrose, hernie discale, dos chronique ?",
       "type": "binary",
       "pendingValidation": true,
       "notes": "NON=5★.",
@@ -367,161 +320,14 @@
       "onYes": 3
     },
     {
-      "id": "MV_ACT_PHYS",
-      "theme": "Hygiène de vie",
-      "label": "Activité physique régulière ?",
-      "type": "frequency",
+      "id": "N2_CANCER",
+      "theme": "Cancer",
+      "label": "Une tumeur ou un cancer, quel qu'il soit ?",
+      "type": "binary",
       "pendingValidation": true,
-      "notes": "Modalités → étoiles. Jamais=2★, Occasionnel=3★, Régulier=4★, Quotidien=5★ (proposition).",
-      "map": {
-        "Quotidien": 5,
-        "Régulier": 4,
-        "Occasionnel": 3,
-        "Jamais": 1
-      }
-    }
-  ],
-  "rubriques": [
-    {
-      "rubrique": "Corpulence",
-      "indicateurs": [
-        "N1_IMC",
-        "N1_IMC_BAS",
-        "N1_POIDS_VAR"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Hygiène de vie",
-      "indicateurs": [
-        "N1_TABAC",
-        "N1_ALCOOL",
-        "N1_STUP",
-        "MV_ACT_PHYS"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Cardio-vasculaire",
-      "indicateurs": [
-        "N1_TA_SYS",
-        "N1_TA_DIA",
-        "N2_CARDIO"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Antécédents",
-      "indicateurs": [
-        "N1_ARRET",
-        "N1_ALD100",
-        "N1_INVAL",
-        "N1_HOSPI_PREV"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Infectieux",
-      "indicateurs": [
-        "N1_VIH_HEP",
-        "N2_INFECT"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Endocrinien / métabolisme",
-      "indicateurs": [
-        "N2_ENDOC"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Sang",
-      "indicateurs": [
-        "N2_SANG"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Psychiatrie",
-      "indicateurs": [
-        "N2_PSY"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Sommeil",
-      "indicateurs": [
-        "N2_SOMMEIL"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Neurologie / muscles",
-      "indicateurs": [
-        "N2_NEURO"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "ORL / yeux",
-      "indicateurs": [
-        "N2_ORL_OPH"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Respiratoire",
-      "indicateurs": [
-        "N2_RESP"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Digestif",
-      "indicateurs": [
-        "N2_DIGEST"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Urinaire / génital",
-      "indicateurs": [
-        "N2_URO_GEN"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Peau",
-      "indicateurs": [
-        "N2_PEAU"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Ostéo-articulaire",
-      "indicateurs": [
-        "N2_OSTEO"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Auto-immun / tumeurs",
-      "indicateurs": [
-        "N2_AUTOIMM"
-      ],
-      "regle": "MIN"
-    },
-    {
-      "rubrique": "Modes de vie",
-      "indicateurs": [
-        "MV_VOYAGE",
-        "MV_AERIEN",
-        "MV_2ROUES",
-        "MV_SPORT",
-        "MV_DANGER"
-      ],
-      "regle": "MIN"
+      "notes": "NON=5★. Voir droit à l'oubli AERAS.",
+      "onNo": 5,
+      "onYes": 1
     }
   ]
 }

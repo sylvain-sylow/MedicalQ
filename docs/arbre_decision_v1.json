@@ -1,0 +1,292 @@
+{
+  "version": "1.0",
+  "description": "Arbre de décision - Phase Collecte. Niveau 0 = filtres généraux (identiques a l'esprit des questionnaires simplifiés Groupama/AXA/April). Chaque 'Oui' ouvre un noeud de niveau 1 (systeme du corps), qui lui-meme ouvre le sous-questionnaire specialise MetLife correspondant (niveau 2).",
+  "niveau_0_filtres_generaux": [
+    {
+      "id": "q0_taille_poids",
+      "label": "Taille et poids",
+      "type": "mesure",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_hospitalisation_chirurgie",
+      "label": "Hospitalisation et/ou intervention chirurgicale (10 dernières années)",
+      "branchement_si_oui": [
+        "osteo_articulaire",
+        "tumeurs",
+        "cardiaque_ischemique",
+        "cardiaque_non_ischemique",
+        "generique_cro_crh",
+        "generique_cr_hospitalisation"
+      ]
+    },
+    {
+      "id": "q0_colonne_articulations",
+      "label": "Consultation pour colonne vertébrale ou atteinte articulaire/rhumatismale (5 ans)",
+      "branchement_si_oui": [
+        "osteo_articulaire"
+      ]
+    },
+    {
+      "id": "q0_psychisme",
+      "label": "Consultation pour troubles psychiques : anxiété, dépression, stress (5 ans)",
+      "branchement_si_oui": [
+        "psychisme"
+      ]
+    },
+    {
+      "id": "q0_arret_travail",
+      "label": "Arrêt de travail >30 jours pour raison médicale (5 ans)",
+      "branchement_si_oui": [
+        "question_libre_motif"
+      ]
+    },
+    {
+      "id": "q0_prise_charge_100",
+      "label": "Prise en charge à 100% / ALD (15 ans)",
+      "branchement_si_oui": [
+        "question_libre_motif"
+      ]
+    },
+    {
+      "id": "q0_arret_actuel",
+      "label": "Arrêt de travail actuel",
+      "branchement_si_oui": [
+        "question_libre_motif"
+      ]
+    },
+    {
+      "id": "q0_invalidite",
+      "label": "Pension, rente, invalidité ou AAH",
+      "branchement_si_oui": [
+        "question_libre_motif"
+      ]
+    },
+    {
+      "id": "q0_examens_prevus",
+      "label": "Examen, consultation spécialisée ou hospitalisation prévue (6 mois)",
+      "branchement_si_oui": [
+        "question_libre_motif"
+      ]
+    },
+    {
+      "id": "q0_tabac",
+      "label": "Tabac (cigarettes/cigares/pipe/vapotage) — quantité/jour, date d'arrêt",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_alcool",
+      "label": "Alcool (vin/bière/apéritif/alcool fort) — quantité/jour",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_drogues",
+      "label": "Usage de stupéfiants — lesquels, jusqu'à quand",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_sport",
+      "label": "Sport(s)/activités à risque (fréquence, compétition, professionnel)",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_voyages",
+      "label": "Séjour/résidence hors Europe/USA/Canada/Japon/Australie/NZ/HK/Singapour",
+      "toujours_pose": true
+    },
+    {
+      "id": "q0_grossesse",
+      "label": "Grossesse en cours / antérieures (femmes)",
+      "toujours_pose": "si femme"
+    },
+    {
+      "id": "q0_autres_contrats",
+      "label": "Autres contrats d'assurance décès/invalidité, refus/surprime antérieurs",
+      "toujours_pose": true
+    }
+  ],
+  "niveau_1_systemes_du_corps": [
+    {
+      "systeme": "Neurologique",
+      "declenche_categorie": "neurologie",
+      "mots_cles": [
+        "AVC",
+        "AIT",
+        "sclérose en plaques",
+        "Parkinson",
+        "épilepsie",
+        "paralysie",
+        "migraine sévère"
+      ]
+    },
+    {
+      "systeme": "Cardio-vasculaire (ischémique)",
+      "declenche_categorie": "cardiaque_ischemique",
+      "mots_cles": [
+        "angor",
+        "infarctus",
+        "coronaropathie"
+      ]
+    },
+    {
+      "systeme": "Cardio-vasculaire (non ischémique)",
+      "declenche_categorie": "cardiaque_non_ischemique",
+      "mots_cles": [
+        "arythmie",
+        "souffle",
+        "valvulopathie",
+        "cardiomyopathie",
+        "malformation cardiaque"
+      ]
+    },
+    {
+      "systeme": "Cardio-vasculaire (chirurgie valve/greffe)",
+      "declenche_categorie": "chirurgie_valvulaire",
+      "mots_cles": [
+        "prothèse valvulaire",
+        "rétrécissement aortique",
+        "rétrécissement mitral"
+      ]
+    },
+    {
+      "systeme": "Hypertension",
+      "declenche_categorie": "hypertension",
+      "mots_cles": [
+        "hypertension",
+        "tension élevée"
+      ]
+    },
+    {
+      "systeme": "Respiratoire",
+      "declenche_categorie": "respiratoire",
+      "mots_cles": [
+        "asthme",
+        "BPCO",
+        "bronchite chronique",
+        "emphysème"
+      ]
+    },
+    {
+      "systeme": "Apnées du sommeil",
+      "declenche_categorie": "apnees_sommeil",
+      "mots_cles": [
+        "apnée",
+        "ronflement sévère",
+        "PPC"
+      ]
+    },
+    {
+      "systeme": "Hépatique",
+      "declenche_categorie": "hepatique",
+      "mots_cles": [
+        "hépatite",
+        "cirrhose",
+        "foie"
+      ]
+    },
+    {
+      "systeme": "Endocrinien - Diabète",
+      "declenche_categorie": "diabete",
+      "mots_cles": [
+        "diabète",
+        "glycémie"
+      ]
+    },
+    {
+      "systeme": "Endocrinien - Thyroïde",
+      "declenche_categorie": "thyroide",
+      "mots_cles": [
+        "thyroïde",
+        "goitre"
+      ]
+    },
+    {
+      "systeme": "Rénal - Lithiase",
+      "declenche_categorie": "lithiase",
+      "mots_cles": [
+        "calcul rénal",
+        "colique néphrétique"
+      ]
+    },
+    {
+      "systeme": "Rénal - Dialyse/greffe",
+      "declenche_categorie": "dialyse",
+      "mots_cles": [
+        "dialyse",
+        "insuffisance rénale terminale"
+      ]
+    },
+    {
+      "systeme": "Urinaire/Prostate",
+      "declenche_categorie": "prostate_urinaire",
+      "mots_cles": [
+        "prostate",
+        "infection urinaire",
+        "protéinurie"
+      ]
+    },
+    {
+      "systeme": "Digestif - MICI",
+      "declenche_categorie": "crohn_colite",
+      "mots_cles": [
+        "Crohn",
+        "colite",
+        "RCH"
+      ]
+    },
+    {
+      "systeme": "Ostéo-articulaire",
+      "declenche_categorie": "osteo_articulaire",
+      "mots_cles": [
+        "arthrose",
+        "hernie discale",
+        "polyarthrite"
+      ]
+    },
+    {
+      "systeme": "Psychisme",
+      "declenche_categorie": "psychisme",
+      "mots_cles": [
+        "dépression",
+        "anxiété",
+        "bipolaire",
+        "schizophrénie"
+      ]
+    },
+    {
+      "systeme": "Oncologie",
+      "declenche_categorie": "tumeurs",
+      "mots_cles": [
+        "cancer",
+        "tumeur",
+        "chimiothérapie"
+      ]
+    },
+    {
+      "systeme": "Hémopathies",
+      "declenche_categorie": "lymphome_hemopathie",
+      "mots_cles": [
+        "lymphome",
+        "leucémie"
+      ]
+    },
+    {
+      "systeme": "Poids",
+      "declenche_categorie": "obesite",
+      "mots_cles": [
+        "obésité",
+        "chirurgie bariatrique"
+      ]
+    },
+    {
+      "systeme": "Respiratoire génétique",
+      "declenche_categorie": "mucoviscidose",
+      "mots_cles": [
+        "mucoviscidose"
+      ]
+    }
+  ],
+  "niveau_2_source": "voir bibliotheque/questionnaires_specialises.json pour le detail des champs par categorie",
+  "regle_generique": "Toute pathologie non couverte par une categorie specialisee (cf pathologie_to_categorie.json -> 'generique') declenche uniquement la lettre generique correspondante (bilan de la pathologie declaree, CR opératoire/histologique, CR hospitalisation, bilan cardio/lipidique/sérologies selon contexte).",
+  "regle_multi_categorie": "Une meme reponse peut declencher plusieurs categories en parallele (ex: obesite + diabete + apnees_sommeil + cardiaque si comorbidites); l'arbre les instancie comme des branches independantes executees en parallele, pas en sequence bloquante."
+}

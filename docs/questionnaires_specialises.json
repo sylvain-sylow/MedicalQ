@@ -1,0 +1,1170 @@
+{
+  "neurologie": {
+    "code": "Questionnaire 2-I",
+    "titre": "Atteinte neurologique",
+    "url": "Q_Neurologie.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic précis",
+        "type": "text"
+      },
+      {
+        "id": "date_decouverte",
+        "label": "Date de découverte",
+        "type": "date"
+      },
+      {
+        "id": "date_derniere_consult",
+        "label": "Date de la dernière consultation",
+        "type": "date"
+      },
+      {
+        "id": "deficit_initial",
+        "label": "Déficit neurologique initial (lequel, localisation, uni/bilatéral)",
+        "type": "text"
+      },
+      {
+        "id": "deficit_actuel",
+        "label": "Déficit neurologique actuel (lequel, localisation)",
+        "type": "text"
+      },
+      {
+        "id": "sep_forme",
+        "label": "Si sclérose en plaques : forme (rémittente / progressive / secondairement progressive)",
+        "type": "select",
+        "condition": "diagnostic contient 'sclérose en plaques'"
+      },
+      {
+        "id": "parkinson_details",
+        "label": "Si Parkinson : tremblement généralisé, rigidité importante",
+        "type": "text",
+        "condition": "diagnostic contient 'parkinson'"
+      },
+      {
+        "id": "avc_details",
+        "label": "Si AVC : nombre d'épisodes, récupération <24h, hémorragie cérébrale, étiologie, évolution",
+        "type": "text",
+        "condition": "diagnostic contient 'avc'"
+      },
+      {
+        "id": "echelle_kurtzke",
+        "label": "Échelle de Kurtzke (1 à 9, autonomie/handicap)",
+        "type": "scale_1_9"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "Traitement médical (dopamine, anticholinergique, corticothérapie, anticoagulant, anticomitial, immunodépresseur, interféron β...)",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Traitement chirurgical (lequel, résultat) + CR opératoire/histologique à joindre",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "reeducation",
+        "label": "Rééducation en centre spécialisé (date de sortie)",
+        "type": "date"
+      },
+      {
+        "id": "complications",
+        "label": "Complications (dépression, troubles de conscience, démence, vessie neurogène, troubles respiratoires, comitialité)",
+        "type": "multiselect"
+      },
+      {
+        "id": "examens_6mois",
+        "label": "Examens des 6 derniers mois (urines, EFR, fond d'œil, créatinine)",
+        "type": "text"
+      },
+      {
+        "id": "arret_travail",
+        "label": "Arrêt de travail (durée, nombre) et reprise",
+        "type": "text"
+      }
+    ]
+  },
+  "cardiaque_ischemique": {
+    "code": "Questionnaire 2-L",
+    "titre": "Maladie cardiaque ischémique",
+    "url": "Q_Maladie_Cardiaque.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic (maladie coronarienne, angor, infarctus...)",
+        "type": "text"
+      },
+      {
+        "id": "atteinte_coronarographie",
+        "label": "Atteinte(s) au bilan initial (tronc commun / mono / bi / tri-tronculaire) + CR coronarographie",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "manifestations_cliniques",
+        "label": "Manifestations cliniques, facteur déclenchant, dernier épisode",
+        "type": "text"
+      },
+      {
+        "id": "infarctus_details",
+        "label": "Infarctus : unique/multiple, nombre, localisation, dates",
+        "type": "text"
+      },
+      {
+        "id": "complications",
+        "label": "Complications (troubles du rythme, shunt, anévrisme VG, insuffisance cardiaque, valvulopathie, cardiomégalie...)",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "Traitement médical (thrombolyse, anti-arythmique, dérivés nitrés, bêtabloquants, IEC, anticoagulants, antiagrégants)",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Pontage / angioplastie / stent / anévrismectomie (localisation, résultat)",
+        "type": "text"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "Épreuve d'effort, fraction d'éjection VG, échocardiographie, ECG repos, scintigraphie thallium",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "facteurs_risque",
+        "label": "Hérédité, tabac, cholestérol (total/HDL), diabète, stress, HTA",
+        "type": "multiselect"
+      },
+      {
+        "id": "limitation_nyha",
+        "label": "Classification NYHA (II / III / IV)",
+        "type": "select"
+      },
+      {
+        "id": "absenteisme",
+        "label": "Absentéisme 3 dernières années pour raisons cardiovasculaires",
+        "type": "text"
+      }
+    ]
+  },
+  "cardiaque_non_ischemique": {
+    "code": "Questionnaire 3-L",
+    "titre": "Maladie cardiaque non ischémique",
+    "url": "Q_Maladie_Cardiaque_Non_Isch.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic précis",
+        "type": "text"
+      },
+      {
+        "id": "nature_atteinte",
+        "label": "Nature (arythmie permanente/paroxystique, bloc de branche, cardiopathie congénitale, cardiomyopathie, myocardite/péricardite, valvulopathie, souffle...)",
+        "type": "select"
+      },
+      {
+        "id": "symptomes",
+        "label": "Fréquence/sévérité, date dernière crise, durée des crises",
+        "type": "text"
+      },
+      {
+        "id": "facteurs_risque",
+        "label": "Hérédité, tabac, cholestérol, diabète, stress, HTA",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement médical / chirurgical (CR hospitalier + opératoire)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "reintervention",
+        "label": "Réintervention envisagée",
+        "type": "date"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "Épreuve d'effort, FEVG, échocardiographie, ECG repos, Holter, radio thorax",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "apnees_sommeil": {
+    "code": "Questionnaire V",
+    "titre": "Syndrome d'apnées du sommeil",
+    "url": "Q_Apnees.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, date découverte, dernière consultation",
+        "type": "text"
+      },
+      {
+        "id": "symptomes",
+        "label": "Symptômes, fréquence, sévérité, capacité fonctionnelle, durée",
+        "type": "text"
+      },
+      {
+        "id": "polysomnographie",
+        "label": "Index apnée-hypopnée (IAH) avant/sous traitement, observance nocturne (+ copie résultat)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement en cours (PPC, autre)",
+        "type": "text"
+      },
+      {
+        "id": "facteurs_comorbides",
+        "label": "Excès pondéral, HTA, diabète, dyslipidémie, tabagisme",
+        "type": "multiselect"
+      },
+      {
+        "id": "complications_cardiaques",
+        "label": "Angor, infarctus (date, type)",
+        "type": "text"
+      },
+      {
+        "id": "complications_cerebrales",
+        "label": "AIT, AVC constitué (date, séquelles)",
+        "type": "text"
+      },
+      {
+        "id": "complications_respiratoires",
+        "label": "Insuffisance respiratoire, BPCO (+ EFR)",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "hepatique": {
+    "code": "Questionnaire O",
+    "titre": "Atteinte hépatique",
+    "url": "Q_Hepatique.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, étiologie (alcoolique, virale A/B/C/Delta/E, autre)",
+        "type": "text"
+      },
+      {
+        "id": "presence_signes",
+        "label": "Ictère, hépatomégalie, ascite, encéphalopathie, HTP, angiomes stellaires",
+        "type": "multiselect"
+      },
+      {
+        "id": "forme",
+        "label": "Forme (aiguë, fulminante, chronique persistante/active)",
+        "type": "select"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "Corticothérapie, bêtabloquant, immunodépresseur, interféron, acide ursodésoxycholique",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Dérivation porto-systémique, autre",
+        "type": "text"
+      },
+      {
+        "id": "bilan_biologique",
+        "label": "Bilirubinémie, transaminases, gamma-GT, phosphatase alcaline, coagulation, électrophorèse protéines, alpha-fœtoprotéine, anticorps anti-mitochondries",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "marqueurs_viraux",
+        "label": "Sérologies B/C/Delta/A/E, ADN VHB, ARN viral, HIV",
+        "type": "text"
+      },
+      {
+        "id": "examens_complementaires",
+        "label": "Échographie hépato-vésiculaire, scanner abdominal, ponction-biopsie (score Knodell/Metavir), fibroscopie",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "consommation_alcool",
+        "label": "Consommation actuelle et abstinence éventuelle",
+        "type": "text"
+      }
+    ]
+  },
+  "respiratoire": {
+    "code": "Questionnaire M",
+    "titre": "Atteinte respiratoire",
+    "url": "Q_Atteinte_Respiratoire.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, étiologie",
+        "type": "text"
+      },
+      {
+        "id": "signes",
+        "label": "Dyspnée (repos/effort), toux, expectoration, hémoptysie, cyanose, wheezing",
+        "type": "multiselect"
+      },
+      {
+        "id": "atteintes_associees",
+        "label": "Asthme, emphysème, bronchectasie, BPCO, bronchite chronique, tuberculose évolutive",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement actuel/antérieur, corticothérapie (permanente/intermittente)",
+        "type": "text"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Type d'intervention, séquelles (+ CR opératoire/histologique)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "assistance_respiratoire",
+        "label": "Assistance respiratoire mécanique (durée)",
+        "type": "text"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "Radio thorax, EFR, gaz du sang, ECG, NFS, signes cœur pulmonaire, hypoxie",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "tabac",
+        "label": "Tabac (cigarettes/cigares/pipes par jour), arrêt éventuel",
+        "type": "text"
+      },
+      {
+        "id": "detail_asthme",
+        "label": "Si asthme : nombre/sévérité des crises par an, hypoxie inter-critique",
+        "type": "text",
+        "condition": "atteintes_associees contient 'asthme'"
+      },
+      {
+        "id": "detail_bronchectasie",
+        "label": "Si bronchectasie : congénitale/localisée, nombre de lobes atteints, drainage postural",
+        "type": "text",
+        "condition": "atteintes_associees contient 'bronchectasie'"
+      }
+    ]
+  },
+  "tumeurs": {
+    "code": "Questionnaire 1E",
+    "titre": "Tumeurs (tous cancers)",
+    "url": "Q_Tumeur.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, circonstances de découverte",
+        "type": "text"
+      },
+      {
+        "id": "localisation_taille",
+        "label": "Localisation et taille de la tumeur (mm)",
+        "type": "text"
+      },
+      {
+        "id": "atteinte_ganglionnaire",
+        "label": "Atteinte ganglionnaire (loco-régionale / à distance), rupture capsulaire",
+        "type": "text"
+      },
+      {
+        "id": "metastases",
+        "label": "Métastase(s), siège",
+        "type": "text"
+      },
+      {
+        "id": "classification",
+        "label": "Diagnostic anatomo-pathologique, classification (TNM, FIGO...), grade (SBR, Dukes, Breslow...)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "chirurgie",
+        "label": "Chirurgie (but diagnostique/curatif/palliatif, résultat) + CR opératoire/histologique",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "radiotherapie",
+        "label": "Radiothérapie (préopératoire/curative/palliative, durée)",
+        "type": "text"
+      },
+      {
+        "id": "chimiotherapie",
+        "label": "Chimiothérapie (protocole, nb cycles, durée)",
+        "type": "text"
+      },
+      {
+        "id": "hormonotherapie",
+        "label": "Hormonothérapie (but préventif/curatif, posologie, durée)",
+        "type": "text"
+      },
+      {
+        "id": "remission_recidive",
+        "label": "Rémission complète (depuis) / récidive(s) (nombre, date) / séquelles",
+        "type": "text"
+      },
+      {
+        "id": "bilan_surveillance",
+        "label": "Dernier bilan (<1an) : scanner, imagerie, endoscopie, échographie, marqueurs tumoraux",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "arret_travail",
+        "label": "Arrêt de travail, reprise (partielle/complète)",
+        "type": "text"
+      }
+    ]
+  },
+  "psychisme": {
+    "code": "Questionnaire H",
+    "titre": "Troubles du psychisme",
+    "url": "Q_Psychisme.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, date de découverte",
+        "type": "text"
+      },
+      {
+        "id": "nature_troubles",
+        "label": "Troubles anxieux / de l'humeur (dépression, épisodes maniaco-dépressifs) / personnalité / schizophrénie / alimentaires / mentaux organiques / retard mental",
+        "type": "select"
+      },
+      {
+        "id": "manifestations",
+        "label": "Épisode unique (date de guérison) ou épisodes multiples (nombre, dates, durée) ou troubles permanents",
+        "type": "text"
+      },
+      {
+        "id": "evolution",
+        "label": "Amélioration / détérioration / stabilisation (depuis quand, facteurs déclenchants)",
+        "type": "text"
+      },
+      {
+        "id": "tentative_suicide",
+        "label": "Tentative(s) de suicide (nombre, date, nature de l'acte, motivation toujours présente)",
+        "type": "text"
+      },
+      {
+        "id": "conduites_addictives",
+        "label": "Abus d'alcool, toxicomanie (actuel/antérieur, depuis quand, quelle(s) substance(s))",
+        "type": "text"
+      },
+      {
+        "id": "comportement_risque",
+        "label": "Comportement violent/à risque : conduite, jeu compulsif, comportement criminel, armes à feu",
+        "type": "multiselect"
+      },
+      {
+        "id": "antecedents_familiaux",
+        "label": "Antécédent familial de trouble mental / suicide",
+        "type": "multiselect"
+      },
+      {
+        "id": "suivi",
+        "label": "Suivi par généraliste/psychiatre/psychologue, hospitalisation(s) (nombre, dates, durée, motifs)",
+        "type": "text"
+      },
+      {
+        "id": "traitement_actuel",
+        "label": "Anxiolytiques, antidépresseurs, tranquillisants, lithium, neuroleptiques, sismothérapie (posologie, depuis quand, observance)",
+        "type": "multiselect"
+      },
+      {
+        "id": "arret_travail",
+        "label": "Arrêt de travail (nombre, durée, dates), mise en invalidité envisagée",
+        "type": "text"
+      }
+    ]
+  },
+  "diabete": {
+    "code": "Questionnaire 1F",
+    "titre": "Diabète",
+    "url": "Q_Diabete.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, date de découverte",
+        "type": "text"
+      },
+      {
+        "id": "traitement",
+        "label": "Antidiabétiques oraux / insulinothérapie (en cours ou envisagée) / autres",
+        "type": "multiselect"
+      },
+      {
+        "id": "evolution",
+        "label": "Hyperglycémies (>15,4 mmol/l), hypoglycémies (occasionnelles/fréquentes), équilibre, acido-cétose/coma",
+        "type": "text"
+      },
+      {
+        "id": "dosages_recents",
+        "label": "Glycémie à jeun, HbA1c, glycosurie, acétonurie, microalbuminurie, protéinurie (valeurs et dates)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "retentissement_renal",
+        "label": "Retentissement rénal",
+        "type": "text"
+      },
+      {
+        "id": "retentissement_vasculaire",
+        "label": "Maladie coronarienne, artères périphériques, rétinopathie proliférative, maladie cérébrovasculaire",
+        "type": "multiselect"
+      },
+      {
+        "id": "retentissement_neuro",
+        "label": "Neuropathie autonome / périphérique",
+        "type": "multiselect"
+      },
+      {
+        "id": "facteurs_risque",
+        "label": "Hérédité, tabac, cholestérol, HTA, ECG repos/effort",
+        "type": "text"
+      }
+    ]
+  },
+  "diabete_assure": {
+    "code": "QS-1/2 (2020)",
+    "titre": "Diabète — questionnaire assuré (auto-déclaratif)",
+    "url": "QS_Diabete.pdf",
+    "champs": [
+      {
+        "id": "date_diagnostic",
+        "label": "Date du diagnostic",
+        "type": "date"
+      },
+      {
+        "id": "type_traitement",
+        "label": "Traitement par insuline (type, posologie, nb injections/jour) ou non",
+        "type": "text"
+      },
+      {
+        "id": "frequence_dosage",
+        "label": "Fréquence de dosage glycémie/protéinurie",
+        "type": "text"
+      },
+      {
+        "id": "resultats_glycemies",
+        "label": "3 dernières glycémies (résultats + dates)",
+        "type": "text"
+      },
+      {
+        "id": "resultats_hba1c",
+        "label": "2 derniers dosages HbA1c (résultats + dates)",
+        "type": "text"
+      },
+      {
+        "id": "suivi_medical",
+        "label": "Fréquence de consultation, date de la dernière",
+        "type": "text"
+      },
+      {
+        "id": "hospitalisation_coma",
+        "label": "Hospitalisation pour coma diabétique ou autre complication",
+        "type": "text"
+      },
+      {
+        "id": "complications_declarees",
+        "label": "Albumine/protéines urinaires, problèmes oculaires, engourdissements, HTA, troubles cardio/rénaux",
+        "type": "multiselect"
+      },
+      {
+        "id": "arret_travail",
+        "label": "Arrêt de travail ≥15 jours (toute cause)",
+        "type": "text"
+      }
+    ]
+  },
+  "dialyse": {
+    "code": "Questionnaire 1-P",
+    "titre": "Dialyse",
+    "url": "Q_Dialyse.pdf",
+    "champs": [
+      {
+        "id": "type_dialyse",
+        "label": "Hémodialyse (hôpital/domicile) ou dialyse péritonéale (intermittente/DPCA)",
+        "type": "select"
+      },
+      {
+        "id": "chronicite",
+        "label": "Dialyse chronique (depuis) ou temporaire (pour rejet de greffe)",
+        "type": "text"
+      },
+      {
+        "id": "transplantation",
+        "label": "Transplantation envisagée / échec préalable",
+        "type": "text"
+      },
+      {
+        "id": "complications",
+        "label": "Phlébite, péritonite, septicémie (nombre d'épisodes, dernier en date)",
+        "type": "text"
+      },
+      {
+        "id": "maladies_associees",
+        "label": "Ostéodystrophie rénale, anémie rénale, pathologie cardiovasculaire",
+        "type": "multiselect"
+      },
+      {
+        "id": "affection_causale",
+        "label": "Insuffisance rénale aiguë/terminale, maladie rénale primitive/systémique",
+        "type": "text"
+      },
+      {
+        "id": "constatations_biologiques",
+        "label": "Créatinine avant/après dialyse, calcium, phosphore, PTH, cholestérol, hémoglobine, VIH, hépatite C, Ag Hbs",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "suivi",
+        "label": "Centre de néphrologie / néphrologue habilité, dernier contrôle",
+        "type": "text"
+      }
+    ]
+  },
+  "transplantation_renale": {
+    "code": "Questionnaire 2P",
+    "titre": "Transplantation rénale",
+    "url": "Q_Transplantation_renale.pdf",
+    "champs": [
+      {
+        "id": "cause_irt",
+        "label": "Cause de l'insuffisance rénale terminale (maladie primitive/systémique/autre)",
+        "type": "text"
+      },
+      {
+        "id": "transplantation",
+        "label": "Nombre de transplantations, type de donneur (cadavre/vivant apparenté/syngénique), date",
+        "type": "text"
+      },
+      {
+        "id": "fonction_greffon",
+        "label": "Fonction du greffon (bonne/suboptimale/altérée), stabilité",
+        "type": "text"
+      },
+      {
+        "id": "rejets",
+        "label": "Crises de rejet aigu (2 dernières années, nombre), signes de rejet chronique",
+        "type": "text"
+      },
+      {
+        "id": "traitement_immunodepresseur",
+        "label": "Azathioprine, ciclosporine, corticothérapie (posologie, depuis)",
+        "type": "multiselect"
+      },
+      {
+        "id": "effets_secondaires",
+        "label": "Infections opportunistes, néphropathie à la ciclosporine",
+        "type": "text"
+      },
+      {
+        "id": "constatations_biologiques",
+        "label": "Tension, protéinurie, créatinine, clairance, transaminases, hémoglobine, VIH, hépatite C",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "suivi",
+        "label": "Centre de transplantation / néphrologie, dernier contrôle",
+        "type": "text"
+      }
+    ]
+  },
+  "lithiase": {
+    "code": "Questionnaire P",
+    "titre": "Lithiase urinaire",
+    "url": "Q_Lithiase.pdf",
+    "champs": [
+      {
+        "id": "localisation",
+        "label": "Rénale / urétérale (droite/gauche) / vésicale",
+        "type": "select"
+      },
+      {
+        "id": "affection_causale",
+        "label": "Cause identifiée, toujours présente ?",
+        "type": "text"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Néphrectomie ou autre intervention (+ CR opératoire/histologique)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "examens_recents",
+        "label": "Protéines, sucres, ECBU, acide urique, créatinine (3 derniers mois)",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "thyroide": {
+    "code": "Questionnaire F",
+    "titre": "Atteinte thyroïdienne",
+    "url": "Q_Thyroide.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, date de découverte",
+        "type": "text"
+      },
+      {
+        "id": "type_atteinte",
+        "label": "Hyperthyroïdie / maladie de Basedow / goitre (toxique/non toxique) / nodule / thyroïdite",
+        "type": "select"
+      },
+      {
+        "id": "signes",
+        "label": "Tremblement, exophtalmie, fibrillation auriculaire, insuffisance cardiaque, ralentissement psychomoteur, myxœdème",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement médical (lequel, depuis) / chirurgical (+ CR opératoire/histologique)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "examens_6mois",
+        "label": "Fonction thyroïdienne, ECG repos/effort, cholestérol",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "prostate_urinaire": {
+    "code": "Questionnaire T",
+    "titre": "Atteintes urinaires et prostatiques",
+    "url": "Q_Prostate.pdf",
+    "champs": [
+      {
+        "id": "maladie_glomerulaire",
+        "label": "Type de glomérulonéphrite, % glomérules atteints (+ CR biopsie rénale)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "atteinte_renale_autre",
+        "label": "Anomalie congénitale, anomalie interstitielle, insuffisance rénale (aiguë/chronique)",
+        "type": "text"
+      },
+      {
+        "id": "hydronephrose_stenose",
+        "label": "Hydronéphrose (uni/bilatérale), sténose artère rénale, cause",
+        "type": "text"
+      },
+      {
+        "id": "hyperplasie_prostate",
+        "label": "Hyperplasie prostatique, intervention, atteinte rénale associée",
+        "type": "text"
+      },
+      {
+        "id": "lithiase_prostatite",
+        "label": "Lithiase prostatique (nb épisodes), prostatite (aiguë/chronique)",
+        "type": "text"
+      },
+      {
+        "id": "traitement",
+        "label": "Corticothérapie, anti-HTA, chirurgical (+ CR)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "Analyse urines, créatininémie, clairance, PSA (+ % libre), urographie, échographie, TDM pelvienne",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "epilepsie": {
+    "code": "Questionnaire 1-I",
+    "titre": "Épilepsie",
+    "url": "Q_Epilepsie.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, date de découverte",
+        "type": "text"
+      },
+      {
+        "id": "type_crises",
+        "label": "Grand mal / petit mal / autre, nombre de crises depuis découverte et sur 12 mois, date dernière crise",
+        "type": "text"
+      },
+      {
+        "id": "affection_causale",
+        "label": "Cause, origine tumorale formellement exclue (artériographie/scanner/scintigraphie/chirurgie)",
+        "type": "text"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement (lequel, depuis)",
+        "type": "text"
+      },
+      {
+        "id": "troubles_associes",
+        "label": "Troubles nerveux ou psychiques associés",
+        "type": "text"
+      },
+      {
+        "id": "consommation_alcool",
+        "label": "Consommation quotidienne d'alcool (vin, bière, apéritif, alcool fort)",
+        "type": "text"
+      }
+    ]
+  },
+  "lymphome_hemopathie": {
+    "code": "Questionnaire 2-E",
+    "titre": "Lymphomes & hémopathies malignes",
+    "url": "Q_Lymphome.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Lymphome non hodgkinien / Hodgkin / hémopathie maligne (LLC, LAM, LNLA, LM, LLA...)",
+        "type": "text"
+      },
+      {
+        "id": "stade_classification",
+        "label": "Stade, classification (bas grade / intermédiaire / haut grade), maladie massive, fièvre, sueurs, perte de poids",
+        "type": "text"
+      },
+      {
+        "id": "evolution",
+        "label": "Rémission complète (depuis), récidive(s) (nombre, dates), stabilisation, séquelles",
+        "type": "text"
+      },
+      {
+        "id": "traitement",
+        "label": "Chirurgie / radiothérapie / chimiothérapie (protocole) / greffe de moelle (+ CR)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "bilan_surveillance",
+        "label": "Scanner, radio thorax, hémogramme, thrombocytes, sérologies virales (<1an)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "arret_travail",
+        "label": "Arrêt de travail, reprise (partielle/complète)",
+        "type": "text"
+      }
+    ]
+  },
+  "obesite": {
+    "code": "Questionnaire U",
+    "titre": "Obésité majeure — Chirurgie de l'obésité",
+    "url": "Q_Obesite.pdf",
+    "champs": [
+      {
+        "id": "mesures",
+        "label": "Poids actuel, taille, IMC, poids maximum atteint, TA",
+        "type": "text"
+      },
+      {
+        "id": "suivi",
+        "label": "Suivi médecin traitant / spécialiste(s) (fréquence)",
+        "type": "text"
+      },
+      {
+        "id": "affections_associees_metaboliques",
+        "label": "Diabète, dyslipidémie",
+        "type": "multiselect"
+      },
+      {
+        "id": "affections_associees_cardio",
+        "label": "Coronaropathie, HTA, troubles du rythme, AVC (+ bilan cardio)",
+        "type": "multiselect"
+      },
+      {
+        "id": "affections_associees_respiratoires",
+        "label": "Apnées du sommeil, troubles ventilatoires, HTAP",
+        "type": "multiselect"
+      },
+      {
+        "id": "autres_affections",
+        "label": "Dépression, rhumatologie, troubles veineux",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitements",
+        "label": "Régime, médicaments, cure d'amaigrissement, ballonnet, chirurgie",
+        "type": "multiselect"
+      },
+      {
+        "id": "chirurgie_obesite",
+        "label": "Type (anneau/bypass/autre), poids avant intervention, date, résultats/complications, ré-intervention envisagée",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "bilan_biologique",
+        "label": "Glycémie à jeun, HbA1c, cholestérol/HDL/triglycérides, transaminases",
+        "type": "text"
+      }
+    ]
+  },
+  "osteo_articulaire": {
+    "code": "Questionnaire V",
+    "titre": "Atteinte ostéo-articulaire",
+    "url": "Q_Atteinte_Osteo.pdf",
+    "champs": [
+      {
+        "id": "diagnostic",
+        "label": "Diagnostic, affection causale",
+        "type": "text"
+      },
+      {
+        "id": "evolutivite",
+        "label": "Épisode unique / maladie chronique / toujours évolutive / guérison clinique (depuis)",
+        "type": "text"
+      },
+      {
+        "id": "symptomes",
+        "label": "Gêne fonctionnelle, raideur/ankylose, difformité, déficits neurologiques",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "AINS, corticoïdes, sels d'or, immunodépresseurs, cytotoxiques (permanent/intermittent, depuis)",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Type, résultat, ré-intervention (+ CR opératoire/histologique)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "examens_2ans",
+        "label": "Radiologie, IRM/scanner, VSG, radio thorax, EFR",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "absenteisme",
+        "label": "Fréquence, durée moyenne, reprise (partielle/complète)",
+        "type": "text"
+      }
+    ]
+  },
+  "crohn_colite": {
+    "code": "Questionnaire N",
+    "titre": "Maladie de Crohn / Colite ulcéreuse",
+    "url": "Q_Crohn_Colite.pdf",
+    "champs": [
+      {
+        "id": "localisation",
+        "label": "Iléon / intestin grêle / iléocolite / côlon (pancolite, colite sévère) / rectum",
+        "type": "select"
+      },
+      {
+        "id": "evolution",
+        "label": "Rémission (depuis, nb poussées) / récidive après intervention",
+        "type": "text"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "Salazopyrine, 5-ASA, corticothérapie, immunodépresseur, nutrition parentérale",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_chirurgical",
+        "label": "Type, séquelles (+ CR opératoire/histologique)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "complications",
+        "label": "Fistule, mégacôlon toxique, anémie, perte de poids, dégénérescence cancéreuse, perforation, sténose, arthrite, hépatite, uvéite",
+        "type": "multiselect"
+      },
+      {
+        "id": "examens_6mois",
+        "label": "Transit du grêle, lavement baryté, endoscopie, VSG, biopsie",
+        "type": "text_with_attachment"
+      }
+    ]
+  },
+  "hypertension": {
+    "code": "Questionnaire 1-L",
+    "titre": "Hypertension artérielle",
+    "url": "Q_Hypertension.pdf",
+    "champs": [
+      {
+        "id": "type",
+        "label": "Cause indéterminée ou HTA secondaire (cause)",
+        "type": "text"
+      },
+      {
+        "id": "traitement",
+        "label": "Traitement antihypertenseur (lequel, depuis, toujours en cours)",
+        "type": "text"
+      },
+      {
+        "id": "examens",
+        "label": "ECG repos/effort, échocardiographie, examen des urines (protéines, sucres), fond d'œil (rétinopathie)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "mesures_tension",
+        "label": "Mesures des 2 dernières années (dates, chiffres systole/diastole)",
+        "type": "text"
+      },
+      {
+        "id": "antecedents_familiaux",
+        "label": "Maladie coronarienne/cérébrovasculaire avant 60 ans chez ascendants/collatéraux",
+        "type": "text"
+      },
+      {
+        "id": "tabac",
+        "label": "Cigarettes/cigares/pipes par jour",
+        "type": "text"
+      },
+      {
+        "id": "autres_facteurs",
+        "label": "Autres facteurs de risque d'athérosclérose",
+        "type": "text"
+      }
+    ]
+  },
+  "chirurgie_valvulaire": {
+    "code": "Questionnaire L",
+    "titre": "Chirurgie valvulaire",
+    "url": "Q_Chir_Valvulaire.pdf",
+    "champs": [
+      {
+        "id": "valvulopathie_initiale",
+        "label": "Nature et localisation de la/des valvulopathie(s) initiale(s)",
+        "type": "text"
+      },
+      {
+        "id": "type_intervention",
+        "label": "Prothèse mécanique / bioprothèse (porc, péricarde de veau, autologue) / commissurotomie",
+        "type": "select"
+      },
+      {
+        "id": "resultat",
+        "label": "Résultat opératoire satisfaisant, réintervention envisagée",
+        "type": "text"
+      },
+      {
+        "id": "traitement_medical",
+        "label": "Anticoagulants (depuis), autre",
+        "type": "text"
+      },
+      {
+        "id": "complications",
+        "label": "Calcification valvulaire, accident hémorragique, troubles du rythme",
+        "type": "multiselect"
+      },
+      {
+        "id": "hypertrophie_dilatation",
+        "label": "Légère / modérée / marquée / sévère",
+        "type": "select"
+      },
+      {
+        "id": "examens_5ans",
+        "label": "ECG repos/effort, radio thorax, échographie, test VIH",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "limitation_activite",
+        "label": "Fatigue, palpitation, dyspnée, syncope — au repos ou à l'effort",
+        "type": "multiselect"
+      }
+    ]
+  },
+  "transplantation_cardiaque": {
+    "code": "Questionnaire (Transplantation cardiaque)",
+    "titre": "Transplantation cardiaque",
+    "url": "Q_Transplantation_Cardiaque.pdf",
+    "champs": [
+      {
+        "id": "affection_origine",
+        "label": "Congénitale/héréditaire, traumatique, ou acquise (origine)",
+        "type": "text"
+      },
+      {
+        "id": "transplantation",
+        "label": "Date(s), âge du donneur, parenté, origine du greffon, 1ère/2ème transplantation, rejet",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "complications",
+        "label": "Digestives, neurologiques, métaboliques, autres",
+        "type": "multiselect"
+      },
+      {
+        "id": "traitement_immunodepresseur",
+        "label": "Traitements médicaux et chirurgicaux associés",
+        "type": "text"
+      },
+      {
+        "id": "suivi",
+        "label": "Séjours hospitaliers, fréquence des consultations",
+        "type": "text"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "Épreuve d'effort, FEVG, échocardiographie, ECG repos, scintigraphie thallium",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "facteurs_risque",
+        "label": "Hérédité, tabac, cholestérol, diabète, stress, HTA",
+        "type": "text"
+      }
+    ]
+  },
+  "mucoviscidose": {
+    "code": "Questionnaire spécifique",
+    "titre": "Mucoviscidose",
+    "url": "Q_Mucoviscidose.pdf",
+    "champs": [
+      {
+        "id": "evaluation",
+        "label": "Évaluation de l'affection (atteintes pulmonaires et viscérales)",
+        "type": "text"
+      },
+      {
+        "id": "transplantation",
+        "label": "Transplantation d'organe éventuelle",
+        "type": "text"
+      },
+      {
+        "id": "efr",
+        "label": "EFR récentes (<1an), VEMS % théorique (+ résultats)",
+        "type": "text_with_attachment"
+      },
+      {
+        "id": "pneumothorax",
+        "label": "Antécédent de pneumothorax",
+        "type": "text"
+      },
+      {
+        "id": "diabete_associe",
+        "label": "Diabète / intolérance au glucose / hyperglycémie modérée à jeun",
+        "type": "text"
+      },
+      {
+        "id": "insuffisance_pancreatique",
+        "label": "Insuffisance pancréatique exocrine",
+        "type": "text"
+      },
+      {
+        "id": "oxygenotherapie",
+        "label": "Oxygénothérapie quotidienne (heures/jour, depuis quand)",
+        "type": "text"
+      },
+      {
+        "id": "corticotherapie",
+        "label": "Corticothérapie systémique (nom, durée, date)",
+        "type": "text"
+      },
+      {
+        "id": "ventilation",
+        "label": "Ventilation invasive/non invasive (heures/jour, depuis)",
+        "type": "text"
+      },
+      {
+        "id": "colonisation",
+        "label": "Colonisation par Burkholderia cepacia / mycobactérie atypique / Pseudomonas aeruginosa",
+        "type": "multiselect"
+      },
+      {
+        "id": "examens_12mois",
+        "label": "ECG, imagerie thoracique, autres examens",
+        "type": "text_with_attachment"
+      }
+    ]
+  }
+}

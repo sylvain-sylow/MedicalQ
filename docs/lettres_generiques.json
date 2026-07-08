@@ -1,0 +1,37 @@
+{
+  "cro_crh": {
+    "titre": "Comptes rendus opératoire et histologique",
+    "url": "LETTRE_CRO_CRH.pdf",
+    "usage": "Toute intervention chirurgicale déclarée (hors questionnaire spécialisé déjà couvrant)"
+  },
+  "cr_hospitalisation": {
+    "titre": "Compte rendu d'hospitalisation",
+    "url": "LETTRE_CR.pdf",
+    "usage": "Tout séjour hospitalier déclaré"
+  },
+  "bilan_pathologie_declaree": {
+    "titre": "Derniers bilans de contrôle de la pathologie déclarée",
+    "url": "LETTRE_BILAN_PATHOLOGIE_DECLAREE.pdf",
+    "usage": "Pathologies chroniques sans questionnaire spécialisé dédié (ex: lupus, fibromyalgie, syndrome de Raynaud...)"
+  },
+  "bilan_cardio": {
+    "titre": "Bilans cardiologiques",
+    "url": "LETTRE_BILAN_CARDIO.pdf",
+    "usage": "Complément systématique des questionnaires cardiaques"
+  },
+  "bilan_lipidique": {
+    "titre": "Bilans lipidiques",
+    "url": "LETTRE_BILAN_LIPIDIQUE.pdf",
+    "usage": "Hypercholestérolémie, hypertriglycéridémie, coronaropathie, infarctus"
+  },
+  "bilan_serologies": {
+    "titre": "Bilan sérologies",
+    "url": "LETTRE_BILAN_SEROLOGIES.pdf",
+    "usage": "Hépatites B/C, VIH, tuberculose"
+  },
+  "rapport_medical_cardio": {
+    "titre": "Rapport médical cardiovasculaire (RMC)",
+    "url": "RMC.pdf",
+    "usage": "Cas cardiovasculaires complexes/multiples nécessitant synthèse globale"
+  }
+}
