@@ -1,15 +1,42 @@
 // app/api/questionnaire/resume/route.ts
-// Endpoint : GET /api/questionnaire/resume
-// Reprend une session à là où l'assuré s'était arrêté
-// TODO J2
-
 import { NextRequest, NextResponse } from "next/server";
 import { getAssuredSession } from "@/lib/auth/session";
+import { getNextQuestion } from "@/lib/decision-tree/engine";
+import { prisma } from "@/lib/db/prisma";
 
 export async function GET(request: NextRequest) {
   const session = await getAssuredSession();
   if (!session) return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
 
-  // TODO J2 : charger les Answer du fileId courant et retourner la prochaine question
-  return NextResponse.json({ stub: true, message: "TODO J2 — reprise de session" }, { status: 501 });
+  const { searchParams } = new URL(request.url);
+  const fileId = searchParams.get("fileId");
+  if (!fileId) return NextResponse.json({ error: "fileId requis" }, { status: 400 });
+
+  const file = await prisma.healthFile.findFirst({
+    where: { id: fileId, insuredId: session.insuredId },
+  });
+  if (!file) return NextResponse.json({ error: "Dossier introuvable" }, { status: 404 });
+
+  const answers = await prisma.answer.findMany({ where: { fileId }, orderBy: { revision: "desc" } });
+  const answerMap: Record<string, unknown> = {};
+  for (const a of answers) {
+    if (!(a.questionId in answerMap)) answerMap[a.questionId] = a.value;
+  }
+
+  const result = getNextQuestion(answerMap);
+  if (!result) return NextResponse.json({ done: true });
+
+  return NextResponse.json({
+    question: {
+      id:            result.question.id,
+      text:          result.question.text,
+      hint:          result.question.hint,
+      type:          result.question.type,
+      options:       result.question.options,
+      slider:        result.question.slider,
+      textSensitive: result.question.textSensitive ?? false,
+    },
+    progress: result.progress,
+    answeredCount: Object.keys(answerMap).length,
+  });
 }

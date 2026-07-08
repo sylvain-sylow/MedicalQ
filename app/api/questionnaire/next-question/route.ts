@@ -1,16 +1,43 @@
 // app/api/questionnaire/next-question/route.ts
-// Endpoint : POST /api/questionnaire/next-question
-// Retourne la prochaine question d'après l'état courant
-// RÈGLE : ne renvoie JAMAIS l'arbre complet, uniquement la prochaine question
-// TODO J2 : implémenter avec lib/decision-tree/engine.ts
-
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { getAssuredSession } from "@/lib/auth/session";
+import { getNextQuestion } from "@/lib/decision-tree/engine";
+import { prisma } from "@/lib/db/prisma";
+
+const bodySchema = z.object({ fileId: z.string().cuid() });
 
 export async function POST(request: NextRequest) {
   const session = await getAssuredSession();
   if (!session) return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
 
-  // TODO J2 : const question = await getNextQuestion(session.fileId, answers);
-  return NextResponse.json({ stub: true, message: "TODO J2 — moteur d'arbre" }, { status: 501 });
+  const parsed = bodySchema.safeParse(await request.json());
+  if (!parsed.success) return NextResponse.json({ error: "fileId requis" }, { status: 400 });
+
+  const { fileId } = parsed.data;
+
+  // Charger les réponses existantes
+  const answers = await prisma.answer.findMany({ where: { fileId }, orderBy: { revision: "desc" } });
+  const answerMap: Record<string, unknown> = {};
+  for (const a of answers) {
+    if (!(a.questionId in answerMap)) answerMap[a.questionId] = a.value;
+  }
+
+  const result = getNextQuestion(answerMap);
+
+  if (!result) return NextResponse.json({ done: true });
+
+  // Ne jamais renvoyer l'arbre entier — uniquement la question courante
+  return NextResponse.json({
+    question: {
+      id:            result.question.id,
+      text:          result.question.text,
+      hint:          result.question.hint,
+      type:          result.question.type,
+      options:       result.question.options,
+      slider:        result.question.slider,
+      textSensitive: result.question.textSensitive ?? false,
+    },
+    progress: result.progress,
+  });
 }
