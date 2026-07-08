@@ -1,0 +1,34 @@
+ID question,Rubrique,Libellé (langage courant),Type,Unité / sens,5★,4★,3★,2★,1★,Tolérance %,OUI =,À valider,Notes
+N1_IMC,Corpulence,Votre taille et votre poids (IMC calculé),haut,IMC (kg/m²) — haut défavorable,34.5,37,40,45,,15,,Oui,"5★ = 30×1,15. Surpoids/obésité. Maigreur (IMC bas) à traiter séparément (voir N1_IMC_BAS)."
+N1_IMC_BAS,Corpulence,IMC — versant maigreur,bas,IMC (kg/m²) — bas défavorable,18.5,17,16,15,,,,Oui,Risque lié à la dénutrition. Seuils à valider par le médecin conseil.
+N1_POIDS_VAR,Corpulence,Votre poids a-t-il varié de plus de 5 kg sur 12 mois ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Variation involontaire = signal ; module médecin peut affiner.
+N1_TABAC,Hygiène de vie,Combien de cigarettes fumez-vous par jour ?,haut,cig/jour — haut défavorable,0,5,15,25,,0,,Oui,Proposition. Distinguer non-fumeur / ancien fumeur si besoin.
+N1_ALCOOL,Hygiène de vie,Combien de verres d'alcool par jour ?,haut,verres/jour — haut défavorable,1,2,3,5,,0,,Oui,1 verre standard ≈ 10 g. Convertir cl par type de boisson en verres.
+N1_STUP,Hygiène de vie,Usage de stupéfiants hors prescription ?,bin,Oui/Non,,,,,,,2,Oui,NON=5★. Nature/ancienneté affinées au niveau 3.
+N1_TA_SYS,Cardio-vasculaire,Tension artérielle habituelle — systolique,haut,mmHg — haut défavorable,140,150,160,180,,15,,Oui,Auto-déclaration ; 5★≈140 (avec tolérance). À valider.
+N1_TA_DIA,Cardio-vasculaire,Tension artérielle habituelle — diastolique,haut,mmHg — haut défavorable,90,95,100,110,,15,,Oui,À valider par le médecin conseil.
+N1_ARRET,Antécédents,Arrêt(s) de travail > 21 jours (fenêtre retenue) ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Motif/durée collectés en détail.
+N1_ALD100,Antécédents,Prise en charge à 100 % (ALD) ?,bin,Oui/Non,,,,,,,2,Oui,NON=5★. Pathologie ALD affine le score via sa rubrique.
+N1_INVAL,Antécédents,Pension/rente d'invalidité ou AAH ?,bin,Oui/Non,,,,,,,2,Oui,NON=5★. Taux/catégorie à préciser.
+N1_VIH_HEP,Infectieux,Sérologie VIH ou hépatite positive ?,bin,Oui/Non (positif),,,,,,,1,Oui,NON=5★. Répondre OUI uniquement si résultat positif.
+N1_HOSPI_PREV,Antécédents,Hospitalisation ou intervention programmée ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★.
+N2_INFECT,Infectieux,Maladie infectieuse ou parasitaire déclarée ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Gravité affinée par le module niveau 3 (seuils 🔻).
+N2_ENDOC,Endocrinien / métabolisme,"Diabète, thyroïde, cholestérol… déclaré ?",bin,Oui/Non,,,,,,,2,Oui,NON=5★. Diabète : type/équilibre affinent le score.
+N2_SANG,Sang,Maladie du sang déclarée ?,bin,Oui/Non,,,,,,,2,Oui,NON=5★.
+N2_PSY,Psychiatrie,Trouble psychique ou psychiatrique déclaré ?,bin,Oui/Non,,,,,,,2,Oui,"NON=5★. QUESTION SENSIBLE : ton neutre, pas de gamification."
+N2_SOMMEIL,Sommeil,Trouble du sommeil déclaré ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Apnée du sommeil : sévérité à affiner.
+N2_NEURO,Neurologie / muscles,Maladie neurologique ou musculaire déclarée ?,bin,Oui/Non,,,,,,,2,Oui,NON=5★.
+N2_ORL_OPH,ORL / yeux,Affection ORL ou ophtalmologique déclarée ?,bin,Oui/Non,,,,,,,4,Oui,NON=5★. Souvent bénin ; à pondérer.
+N2_CARDIO,Cardio-vasculaire,Maladie cardio-vasculaire déclarée ?,bin,Oui/Non,,,,,,,2,Oui,"NON=5★. HTA traitée, coronaropathie… affinées."
+N2_RESP,Respiratoire,Maladie respiratoire déclarée ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Asthme : fréquence des crises.
+N2_DIGEST,Digestif,Maladie de l'appareil digestif déclarée ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Hépatite/cirrhose plus lourdes.
+N2_URO_GEN,Urinaire / génital,Affection urinaire ou génitale déclarée ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★.
+N2_PEAU,Peau,Maladie de la peau déclarée ?,bin,Oui/Non,,,,,,,4,Oui,NON=5★. Généralement bénin.
+N2_OSTEO,Ostéo-articulaire,Douleurs/maladies des os et articulations déclarées ?,bin,Oui/Non,,,,,,,3,Oui,"NON=5★. Hernie discale, arthrose…"
+N2_AUTOIMM,Auto-immun / tumeurs,"Maladie inflammatoire, auto-immune ou tumeur déclarée ?",bin,Oui/Non,,,,,,,1,Oui,NON=5★. Cancer : voir droit à l'oubli AERAS.
+MV_VOYAGE,Modes de vie,Séjours hors zone géographique de référence ?,bin,Oui/Non,,,,,,,4,Oui,NON=5★. Destination/durée affinent.
+MV_AERIEN,Modes de vie,Pilote ou passager d'aéronef privé ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★. Questionnaire activité spécifique.
+MV_2ROUES,Modes de vie,Deux-roues motorisé pour vos déplacements ?,bin,Oui/Non,,,,,,,4,Oui,NON=5★. Cylindrée/kilométrage.
+MV_SPORT,Modes de vie,"Sport à risque (plongée, alpinisme, sports méca…) ?",bin,Oui/Non,,,,,,,3,Oui,NON=5★. Niveau/compétition affinent.
+MV_DANGER,Modes de vie,Activité dangereuse ou profession à risque ?,bin,Oui/Non,,,,,,,3,Oui,NON=5★.
+MV_ACT_PHYS,Hygiène de vie,Activité physique régulière ?,freq,Jamais/Occ./Rég./Quotidien,Quotidien,Régulier,Occasionnel,,Jamais,,,Oui,"Modalités → étoiles. Jamais=2★, Occasionnel=3★, Régulier=4★, Quotidien=5★ (proposition)."
