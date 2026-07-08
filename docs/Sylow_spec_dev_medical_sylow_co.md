@@ -118,7 +118,7 @@ les réponses API du parcours client) :
 | UI | **Tailwind CSS + shadcn/ui + Framer Motion** | Design system rapide + animations de qualité pour le côté ludique |
 | Base de données | **PostgreSQL managé — OVHcloud HDS (France)** | Données de santé → hébergement HDS obligatoire en France ; OVHcloud est certifié HDS |
 | ORM | Prisma | Migrations versionnées, typage bout en bout |
-| Auth assuré | **OTP SMS via Free** (derrière une interface `SmsProvider`) + session JWT courte (httpOnly, secure) | Voir § 14.3 : valider la capacité d'envoi transactionnel tiers FR + LU |
+| Auth assuré | **OTP SMS via OVHcloud (API SMS)** (derrière une interface `SmsProvider`) + session JWT courte (httpOnly, secure) | Même périmètre HDS ; vérifier la couverture +33 et +352 en recette |
 | Auth médecin | Credentials + TOTP (2FA obligatoire) | |
 | Stockage documents | **Object Storage OVHcloud** (S3-compatible, même périmètre HDS), chiffrement au repos, URLs signées à durée courte | |
 | PDF | Puppeteer (rendu HTML → PDF) ou react-pdf | Le template HTML de synthèse sert aussi de prévisualisation |
@@ -541,7 +541,7 @@ client exemple du document `Sylow_trame_scoring_etoiles.md`.
    plus de justesse dans les espacements et la typographie. Injecter les **design tokens
    de l'Annexe A** dès qu'ils sont relevés sur sylow.co (fichier unique `tokens.ts`).
 7. Isoler les fournisseurs externes derrière des interfaces (`SmsProvider`, `StorageProvider`)
-   dès le départ : Free et OVHcloud sont retenus, mais un changement d'adaptateur ne doit
+   dès le départ : OVHcloud est retenu pour le SMS et le stockage, mais un changement d'adaptateur ne doit
    jamais toucher la logique métier.
 
 ---
@@ -564,15 +564,15 @@ validation de la licence pour un usage web public.
 - Sauvegardes chiffrées, conservées dans le même périmètre HDS.
 - Récupérer et archiver l'**attestation HDS** d'OVHcloud dans le registre de conformité.
 
-### 14.3 SMS OTP — **Free (API SMS)**
-- Envoi des OTP via la passerelle SMS Free.
-- **Point d'attention à valider en amont** : l'offre "SMS Free" historique n'envoie que
-  vers le propre numéro du titulaire du compte Free et ne couvre pas l'envoi transactionnel
-  vers des numéros tiers, France comme Luxembourg. Confirmer que le compte/contrat Free
-  retenu permet bien l'envoi transactionnel multi-destinataires sur les deux pays ; sinon
-  prévoir une passerelle de repli (le code est isolé derrière une interface `SmsProvider`,
-  le changement de fournisseur ne touche qu'un adaptateur).
-- Vérifier la bonne réception sur les préfixes **+33** et **+352** (Luxembourg) en recette.
+### 14.3 SMS OTP — **OVHcloud (API SMS)**
+- Envoi des OTP via l’**API SMS OVHcloud** (même périmètre HDS que la base et le stockage).
+- **Décision arrêtée ✅** : Free écarté (l'offre historique ne couvre pas l'envoi transactionnel
+  vers des numéros tiers). OVHcloud retenu — cohérent avec l’hébergement HDS et une seule
+  relation fournisseur pour base, stockage et SMS.
+- **Point à vérifier en recette** : bonne réception sur les préfixes **+33** (France) et
+  **+352** (Luxembourg) avant mise en production.
+- Le code est isolé derrière l’interface `SmsProvider` — un changement d’adaptateur ne
+  touche qu’un seul fichier (`lib/providers/ovhcloud-sms.adapter.ts`).
 
 ### 14.4 Examens complémentaires — **liste maximale**
 Le référentiel des demandes d'examens est **exhaustif** (cf. § 10.4 et **Annexe B**),
@@ -665,13 +665,7 @@ export const tokens = {
 et le Regular au corps et aux aides. Pour distinguer visuellement les questions du reste
 sans changer de fonte, jouer sur la taille et le poids (question en 28–32 px / Medium).
 
-> **Point licence à valider par le juridique Sylow avant production** : Goldman Sans est
-> distribuée gratuitement mais sous une licence spécifique (usage encadré, redistribution
-> restreinte). Confirmer que l'usage sur une application web publique medical.sylow.co
-> est couvert, récupérer les fichiers de fonte web (woff2) auprès de la source officielle,
-> et les **héberger en self-host** (pas de CDN tiers) pour rester cohérent avec le périmètre
-> HDS. Prévoir un fallback système (`system-ui`) déjà en place dans les tokens si un
-> chargement échoue.
+> **Licence web validée ✅** : Goldman Sans est autorisée pour un usage web public sur medical.sylow.co. Héberger les fichiers en self-host (woff2) — pas de CDN tiers, cohérent avec le périmètre HDS. Fallback `system-ui` déjà en place dans les tokens.
 
 ### Application à l'interface
 - **Assuré** : fond crème `#FCFBF6`, questions en serif bleu marque, une seule touche de
@@ -687,8 +681,7 @@ sans changer de fonte, jouer sur la taille et le poids (question en 28–32 px /
 ### Checklist de finalisation (à faire côté Sylow)
 - [ ] Fournir le logo en **vectoriel (SVG)** + versions monochromes et favicon.
 - [x] Fonte de marque confirmée : **Goldman Sans** (interface entière).
-- [ ] Récupérer les fichiers web **Goldman Sans (woff2)** et **valider la licence**
-      pour un usage web public (voir point licence ci-dessus) ; self-host.
+- [x] Licence web **Goldman Sans (woff2)** validée ✅ — self-host autorisé pour medical.sylow.co ; récupérer les fichiers woff2 auprès de la source officielle.
 - [ ] Valider les nuances sur maquette (le crème peut être ajusté ±2 % selon les écrans).
 
 ---

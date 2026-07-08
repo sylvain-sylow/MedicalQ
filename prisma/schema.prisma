@@ -1,0 +1,180 @@
+// prisma/schema.prisma
+// Source : spec section 8 — medical.sylow.co
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum FileStatus {
+  DRAFT
+  IN_PROGRESS
+  SIGNED
+  UNDER_REVIEW
+  EXAMS_REQUESTED
+  CLOSED
+}
+
+enum ScanStatus {
+  PENDING
+  CLEAN
+  INFECTED
+  ERROR
+}
+
+enum ExamStatus {
+  SENT
+  DOCS_RECEIVED
+  REVIEWED
+}
+
+enum Role {
+  MEDECIN_CONSEIL
+  GESTIONNAIRE
+  ADMIN
+}
+
+// ─── Modèles ──────────────────────────────────────────────────────────────────
+
+model Insured {
+  id          String   @id @default(cuid())
+  phone       String   @unique       // identifiant OTP
+  firstName   String
+  lastName    String
+  birthDate   DateTime
+  birthPlace  String
+  idDocType   String?
+  idDocNumber String?                // chiffré au niveau champ (AES-256-GCM)
+  createdAt   DateTime @default(now())
+
+  files       HealthFile[]
+}
+
+model HealthFile {
+  id            String     @id @default(cuid())
+  insuredId     String
+  status        FileStatus @default(DRAFT)
+  lemoineExempt Boolean    @default(false)
+  loanAmount    Decimal?
+  loanEndAge    Int?
+  consentHealth Json?      // {accepted: boolean, at: DateTime, version: string}
+  aerasAcked    DateTime?
+  signedAt      DateTime?
+  validUntil    DateTime?  // signedAt + 4 mois
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  insured      Insured       @relation(fields: [insuredId], references: [id], onDelete: Cascade)
+  answers      Answer[]
+  documents    Document[]
+  scoring      Scoring?       // 1-1, back-office uniquement
+  examRequests ExamRequest[]
+  auditLogs    AuditLog[]
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  fileId     String
+  questionId String                   // clé de tree.config.ts
+  value      Json                     // chiffré au niveau champ (AES-256-GCM)
+  answeredAt DateTime @default(now())
+  revision   Int      @default(1)     // corrections journalisées
+
+  file       HealthFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@unique([fileId, questionId, revision])
+  @@index([fileId])
+  @@index([questionId])
+}
+
+model Document {
+  id         String     @id @default(cuid())
+  fileId     String
+  questionId String?    // rattachement à la rubrique d'origine
+  storageKey String     // clé Object Storage OVHcloud HDS
+  fileName   String
+  mimeType   String
+  sizeBytes  Int
+  virusScan  ScanStatus @default(PENDING)
+  uploadedAt DateTime   @default(now())
+
+  file       HealthFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@index([fileId])
+}
+
+model Scoring {
+  // JAMAIS exposé aux endpoints assuré
+  id            String   @id @default(cuid())
+  fileId        String   @unique
+  perTheme      Json     // { poids_silhouette: 4, tabac: 3, ... }
+  globalScore   Float    // moyenne géométrique, 1–5
+  computedAt    DateTime @default(now())
+  engineVersion String   // version du barème appliqué (engineVersion de config.ts)
+
+  file          HealthFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+}
+
+model ExamRequest {
+  id          String     @id @default(cuid())
+  fileId      String
+  praticienId String
+  exams       Json       // [{type, motif, rubrique}]
+  message     String?
+  status      ExamStatus @default(SENT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  file        HealthFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  praticien   Praticien  @relation(fields: [praticienId], references: [id])
+
+  @@index([fileId])
+}
+
+model Praticien {
+  id           String @id @default(cuid())
+  email        String @unique
+  passwordHash String
+  totpSecret   String // chiffré
+  role         Role   @default(MEDECIN_CONSEIL)
+  createdAt    DateTime @default(now())
+
+  examRequests ExamRequest[]
+  auditLogs    AuditLog[]
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  fileId      String?
+  praticienId String?
+  actor       String   // insuredId | praticienId | "system"
+  action      String   // "answer.update", "pdf.generate", "document.download"…
+  meta        Json?
+  at          DateTime @default(now())
+
+  file        HealthFile? @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  praticien   Praticien?  @relation(fields: [praticienId], references: [id], onDelete: SetNull)
+
+  @@index([fileId])
+  @@index([praticienId])
+  @@index([at])
+}
+
+// ─── OTP Session (stockée en base, pas JWT seul) ──────────────────────────────
+
+model OtpSession {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String   // hash bcrypt du code
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([phone])
+  @@index([expiresAt])
+}

@@ -32,7 +32,7 @@ Jalon J1 (socle). Initialise le projet :
 - Prisma avec PostgreSQL. Génère prisma/schema.prisma d'après la section 8 de la spec
   (Insured, HealthFile, Answer, Document, Scoring, ExamRequest, Praticien, AuditLog).
 - lib/design/tokens.ts avec la charte Sylow (couleurs + Goldman Sans, section Annexe A).
-- Interfaces SmsProvider et StorageProvider (implémentations Free et OVHcloud en stubs).
+- Interfaces SmsProvider et StorageProvider (implémentations OVHcloud en stubs).
 - Auth assuré par OTP (send/verify) avec un SmsProvider mocké en dev, session JWT httpOnly.
 - Squelette d'arborescence de la section 4 (routes assuré + praticien + api, vides mais typées).
 - Un test Playwright « anti-fuite scoring » qui échoue si un champ score/stars/etoile

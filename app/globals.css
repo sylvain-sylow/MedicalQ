@@ -1,0 +1,144 @@
+/* app/globals.css — Charte graphique Sylow & Co */
+/* Variables CSS dérivées de lib/design/tokens.ts */
+
+@import "tailwindcss";
+
+:root {
+  /* Couleurs Sylow */
+  --color-brand:        #0A2E5C;
+  --color-brand-deep:   #00275B;
+  --color-accent:       #CC1C29;
+  --color-accent-hover: #E11B2A;
+  --color-bg:           #FCFBF6;
+  --color-surface:      #FFFFFF;
+  --color-ink:          #16233A;
+  --color-ink-muted:    #5B6472;
+  --color-success:      #2E7D5B;
+  --color-border:       #E7E3DA;
+  --color-tech-error:   #CC1C29;
+
+  /* Typographie — Goldman Sans (self-host woff2 requis) */
+  --font-brand: 'Goldman Sans', system-ui, -apple-system, sans-serif;
+
+  /* Rayons */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   22px;
+  --radius-pill: 999px;
+
+  /* Ombres */
+  --shadow-card: 0 4px 24px rgba(10, 46, 92, 0.06);
+  --shadow-lift: 0 8px 32px rgba(10, 46, 92, 0.10);
+
+  /* Motion */
+  --motion-question: 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-fast:     150ms ease-out;
+  --motion-standard: 250ms ease-out;
+}
+
+/* Reset & base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-brand);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  margin: 0;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibilité — focus visible (WCAG 2.1 AA) */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Liens */
+a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Titres */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-brand);
+  color: var(--color-brand);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Paragraphes */
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Taille minimale des cibles tactiles — WCAG 2.1 AA */
+button, [role="button"], a, input, select, textarea {
+  min-height: 44px;
+}
+
+/* Bouton Sylow */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast);
+  text-decoration: none;
+  min-height: 48px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Goldman Sans — à self-host en woff2 avant production */
+/* @font-face {
+  font-family: 'Goldman Sans';
+  src: url('/fonts/GoldmanSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldman Sans';
+  src: url('/fonts/GoldmanSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldman Sans';
+  src: url('/fonts/GoldmanSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} */
