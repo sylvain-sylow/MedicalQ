@@ -18,6 +18,9 @@ interface DBDocument {
 
 interface HealthFileData {
   id: string;
+  status: string;
+  signedAt: string | null;
+  validUntil: string | null;
   answers: DBAnswer[];
   documents: DBDocument[];
 }
@@ -28,6 +31,7 @@ export default function RecapPage() {
   const [data, setData] = useState<HealthFileData | null>(null);
   const [activeUploadId, setActiveUploadId] = useState<string | null>(null);
   const [signed, setSigned] = useState(false);
+  const [certifyChecked, setCertifyChecked] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -46,12 +50,19 @@ export default function RecapPage() {
       // Re-mapper le résultat dans notre structure locale
       setData({
         id,
+        status: result.status || "DRAFT",
+        signedAt: result.signedAt || null,
+        validUntil: result.validUntil || null,
         answers: Object.entries(result.answers || {}).map(([questionId, value]) => ({
           questionId,
           value,
         })),
         documents: result.documents || [],
       });
+
+      if (result.status === "SIGNED") {
+        setSigned(true);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -117,8 +128,26 @@ export default function RecapPage() {
 
   const attachedDocs = data.documents;
 
-  const handleSign = () => {
-    setSigned(true);
+  const handleSign = async () => {
+    if (!certifyChecked) {
+      alert("Veuillez cocher la case pour certifier sur l'honneur l'exactitude des informations.");
+      return;
+    }
+    try {
+      const res = await fetch("/api/questionnaire/sign", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileId }),
+      });
+      if (!res.ok) throw new Error("Erreur lors de la signature");
+      const result = await res.json();
+      setSigned(true);
+      loadData(fileId);
+    } catch (err) {
+      alert("Erreur lors de la signature : " + (err as Error).message);
+    }
   };
 
   return (
@@ -145,6 +174,17 @@ export default function RecapPage() {
             <p className="text-stone-600 text-sm max-w-md mx-auto leading-relaxed mb-6">
               Votre signature électronique a été apposée. Le questionnaire et les pièces justificatives ont été transmis de manière sécurisée au médecin-conseil.
             </p>
+
+            {data.signedAt && (
+              <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 my-6 text-xs text-stone-600 space-y-3 max-w-md mx-auto text-left">
+                <p><strong>Horodatage de signature :</strong> {new Date(data.signedAt).toLocaleString("fr-FR")}</p>
+                <p><strong>Validité de la déclaration :</strong> Jusqu'au {new Date(data.validUntil!).toLocaleDateString("fr-FR")} (4 mois)</p>
+                <p className="text-[10px] text-stone-500 border-t pt-3 mt-3 leading-relaxed">
+                  Conformément aux articles L. 113-8 et L. 113-9 du Code des assurances, toute réticence ou fausse déclaration intentionnelle de votre part peut entraîner la nullité de votre contrat d'assurance. Les omissions ou déclarations inexactes non intentionnelles peuvent donner lieu à une réduction des indemnités.
+                </p>
+              </div>
+            )}
+
             <button
               onClick={() => window.location.href = `/dossier?fileId=${fileId}`}
               className="px-6 py-3 bg-[#0A2E5C] hover:bg-[#00275B] text-white text-sm font-semibold rounded-xl transition-colors shadow-sm cursor-pointer"
@@ -276,13 +316,35 @@ export default function RecapPage() {
               <h3 className="font-bold text-[#0A2E5C] text-lg">
                 Signature électronique
               </h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                En certifiant et signant ce dossier, vous attestez sur l'honneur de l'exactitude des informations fournies. Les fausses déclarations peuvent entraîner la nullité de votre contrat d'assurance.
-              </p>
+              <div className="bg-amber-50 border border-amber-200/60 rounded-2xl p-4 text-xs text-stone-700 space-y-2">
+                <p className="font-semibold text-amber-950">Avertissement légal important :</p>
+                <p className="leading-relaxed">
+                  En certifiant et signant ce dossier, vous attestez sur l'honneur de l'exactitude des informations fournies. Conformément aux articles L. 113-8 et L. 113-9 du Code des assurances, toute réticence ou fausse déclaration intentionnelle de votre part peut entraîner la nullité de votre contrat d'assurance.
+                </p>
+              </div>
+              
+              <div className="flex items-start gap-3 pt-2">
+                <input
+                  type="checkbox"
+                  id="certify-checkbox"
+                  checked={certifyChecked}
+                  onChange={(e) => setCertifyChecked(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-stone-300 text-[#CC1C29] focus:ring-[#CC1C29]"
+                />
+                <label htmlFor="certify-checkbox" className="text-xs text-stone-600 leading-normal select-none">
+                  Je certifie sur l'honneur l'exactitude de toutes les déclarations ci-dessus et souhaite procéder à la signature électronique de mon dossier.
+                </label>
+              </div>
+
               <div className="pt-2">
                 <button
                   onClick={handleSign}
-                  className="w-full py-4 bg-[#CC1C29] hover:bg-[#E11B2A] text-white font-bold rounded-2xl text-sm transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
+                  disabled={!certifyChecked}
+                  className={`w-full py-4 font-bold rounded-2xl text-sm transition-colors shadow-sm flex items-center justify-center gap-2 ${
+                    certifyChecked
+                      ? "bg-[#CC1C29] hover:bg-[#E11B2A] text-white cursor-pointer"
+                      : "bg-stone-200 text-stone-400 cursor-not-allowed"
+                  }`}
                 >
                   ✍️ Certifier et signer le dossier
                 </button>

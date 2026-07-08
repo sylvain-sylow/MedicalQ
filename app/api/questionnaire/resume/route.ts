@@ -39,7 +39,11 @@ export async function GET(request: NextRequest) {
   if (!result) {
     return NextResponse.json({
       done: true,
+      answers: answerMap,
       documents: fileDocuments,
+      status: file.status,
+      signedAt: file.signedAt,
+      validUntil: file.validUntil,
     });
   }
 
@@ -56,6 +60,10 @@ export async function GET(request: NextRequest) {
     },
     progress: result.progress,
     answeredCount: Object.keys(answerMap).length,
+    answers: answerMap,
     documents: fileDocuments,
+    status: file.status,
+    signedAt: file.signedAt,
+    validUntil: file.validUntil,
   });
 }

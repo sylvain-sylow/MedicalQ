@@ -5,6 +5,10 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getPraticienSession } from "@/lib/auth/session";
+import { prisma } from "@/lib/db/prisma";
+import { computeScoring } from "@/lib/scoring/stars";
+import { generateSynthesis } from "@/lib/scoring/synthesis";
+import { engineVersion } from "@/lib/scoring/config";
 
 export async function GET(request: NextRequest) {
   const session = await getPraticienSession();
@@ -13,6 +17,54 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
   }
 
-  // TODO J5 : retourner le scoring du dossier demandé
-  return NextResponse.json({ stub: true, message: "TODO J5 — scoring praticien" }, { status: 501 });
+  const { searchParams } = new URL(request.url);
+  const fileId = searchParams.get("fileId");
+  if (!fileId) {
+    return NextResponse.json({ error: "fileId requis" }, { status: 400 });
+  }
+
+  // Vérifier que le dossier existe
+  const file = await prisma.healthFile.findUnique({
+    where: { id: fileId },
+    include: {
+      answers: { orderBy: { revision: "desc" } },
+    },
+  });
+
+  if (!file) {
+    return NextResponse.json({ error: "Dossier introuvable" }, { status: 404 });
+  }
+
+  // Build answer map (latest revision per questionId)
+  const answersMap: Record<string, any> = {};
+  for (const ans of file.answers) {
+    if (!(ans.questionId in answersMap)) {
+      answersMap[ans.questionId] = ans.value;
+    }
+  }
+
+  // Compute scoring
+  const scoring = computeScoring(answersMap, {});
+
+  // Persist scoring to DB (upsert)
+  await prisma.scoring.upsert({
+    where: { fileId },
+    create: {
+      fileId,
+      perTheme: scoring.perTheme,
+      globalScore: scoring.globalScore,
+      engineVersion: scoring.engineVersion,
+    },
+    update: {
+      perTheme: scoring.perTheme,
+      globalScore: scoring.globalScore,
+      engineVersion: scoring.engineVersion,
+      computedAt: new Date(),
+    },
+  });
+
+  // Generate full synthesis report
+  const synthesis = await generateSynthesis(fileId);
+
+  return NextResponse.json(synthesis);
 }

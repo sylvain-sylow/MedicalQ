@@ -2,11 +2,14 @@
 // Singleton Prisma client — évite les connexions multiples en développement (HMR)
 
 const prismaModuleName = "@prisma/client/default";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { PrismaClient } = require(prismaModuleName);
+type PrismaClientType = InstanceType<typeof PrismaClient>;
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClientType };
 
-export const prisma =
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+export const prisma: PrismaClientType =
   globalForPrisma.prisma ||
   new PrismaClient({
     log:

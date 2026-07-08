@@ -30,7 +30,7 @@ export default async function DossierPage() {
     orderBy: { answeredAt: "desc" },
   });
 
-  const answersCount = new Set(answers.map((a) => a.questionId)).size;
+  const answersCount = new Set(answers.map((a: { questionId: string }) => a.questionId)).size;
 
   return (
     <div className="min-h-screen bg-[#FCFBF6] py-12 px-6 flex flex-col items-center justify-center">
