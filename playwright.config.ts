@@ -24,7 +24,6 @@ export default defineConfig({
     },
   ],
 
-  // Lance le serveur Next.js automatiquement pour les tests locaux
   webServer: {
     command: "npm run dev",
     url: "http://localhost:3000",

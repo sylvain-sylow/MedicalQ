@@ -24,7 +24,24 @@ export async function GET(request: NextRequest) {
   }
 
   const result = getNextQuestion(answerMap);
-  if (!result) return NextResponse.json({ done: true });
+  
+  // Récupérer les documents déjà joints au dossier
+  const fileDocuments = await prisma.document.findMany({
+    where: { fileId },
+    select: {
+      id: true,
+      fileName: true,
+      questionId: true,
+      virusScan: true,
+    },
+  });
+
+  if (!result) {
+    return NextResponse.json({
+      done: true,
+      documents: fileDocuments,
+    });
+  }
 
   return NextResponse.json({
     question: {
@@ -35,8 +52,10 @@ export async function GET(request: NextRequest) {
       options:       result.question.options,
       slider:        result.question.slider,
       textSensitive: result.question.textSensitive ?? false,
+      allowUpload:   result.question.allowUpload ?? false,
     },
     progress: result.progress,
     answeredCount: Object.keys(answerMap).length,
+    documents: fileDocuments,
   });
 }

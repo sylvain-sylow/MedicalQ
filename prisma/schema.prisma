@@ -2,7 +2,8 @@
 // Source : spec section 8 — medical.sylow.co
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {

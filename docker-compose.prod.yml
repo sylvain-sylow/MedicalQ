@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  medical-db-prod:
+    image: postgres:16
+    container_name: medical-db-prod
+    environment:
+      POSTGRES_USER: sylvain
+      POSTGRES_PASSWORD: sylow_secure_pwd
+      POSTGRES_DB: medical_sylow_prod
+    ports:
+      - "127.0.0.1:5433:5432" # Accessible uniquement localement pour sécurité
+    volumes:
+      - medical_pg_data:/var/lib/postgresql/data
+    restart: always
+
+  medical-api-prod:
+    image: node:20-slim
+    container_name: medical-api-prod
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3005:3005"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://sylvain:sylow_secure_pwd@medical-db-prod:5432/medical_sylow_prod
+      PORT: 3005
+    command: sh -c "npm install --production && npx prisma db push --accept-data-loss && npm run build && npm run start"
+    depends_on:
+      - medical-db-prod
+    restart: always
+
+volumes:
+  medical_pg_data:

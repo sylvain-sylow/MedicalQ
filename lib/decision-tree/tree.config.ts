@@ -45,6 +45,7 @@ export interface Question {
   /** null = fin du questionnaire pour ce chemin */
   required?: boolean;
   hint?: string;
+  allowUpload?: boolean;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -279,6 +280,7 @@ export const LEVEL1_QUESTIONS: Question[] = [
     ],
     next: { default: "q01_hospitalisation" },
     required: true,
+    allowUpload: true,
   },
 
   // Q7 — Hospitalisations récentes
@@ -298,6 +300,7 @@ export const LEVEL1_QUESTIONS: Question[] = [
     type: "text",
     next: { default: "q01_arret_travail" },
     required: true,
+    allowUpload: true,
   },
 
   // Q8 — Arrêts de travail
@@ -517,6 +520,7 @@ export function getQuestionById(id: string): Question | undefined {
       type: "text",
       next: { default: END_MARKER },
       required: true,
+      allowUpload: true,
     };
   }
 

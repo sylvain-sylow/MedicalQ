@@ -1,7 +1,8 @@
 // lib/db/prisma.ts
 // Singleton Prisma client — évite les connexions multiples en développement (HMR)
 
-import { PrismaClient } from "@prisma/client";
+const prismaModuleName = "@prisma/client/default";
+const { PrismaClient } = require(prismaModuleName);
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 

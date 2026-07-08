@@ -3,6 +3,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { API_URL } from "@/lib/api/config";
 
 export default function ConnexionPage() {
   const [phone, setPhone] = useState("");
@@ -38,7 +39,7 @@ export default function ConnexionPage() {
     }
 
     try {
-      const res = await fetch("/api/auth/otp/send", {
+      const res = await fetch(`${API_URL}/api/auth/otp/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: formattedPhone }),
@@ -72,7 +73,7 @@ export default function ConnexionPage() {
     }
 
     try {
-      const res = await fetch("/api/auth/otp/verify", {
+      const res = await fetch(`${API_URL}/api/auth/otp/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, code: fullOtp }),

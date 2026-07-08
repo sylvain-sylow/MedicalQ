@@ -12,8 +12,9 @@ import {
   SelectControl,
   TextControl,
 } from "@/components/questionnaire/controls";
+import { DocumentUpload } from "@/components/questionnaire/DocumentUpload";
+import { API_URL } from "@/lib/api/config";
 
-// Interface pour la question reçue de l'API
 interface QuestionData {
   id: string;
   text: string;
@@ -22,6 +23,7 @@ interface QuestionData {
   options?: { value: string; label: string; icon?: string }[];
   slider?: { min: number; max: number; step: number; unit: string; defaultValue?: number };
   textSensitive?: boolean;
+  allowUpload?: boolean;
 }
 
 interface ProgressData {
@@ -87,7 +89,7 @@ export default function QuestionnairePage() {
     setSaveStatus("saving");
     try {
       // 1. Sauvegarder la réponse
-      const answerRes = await fetch("/api/questionnaire/answer", {
+      const answerRes = await fetch(`${API_URL}/api/questionnaire/answer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,7 +108,7 @@ export default function QuestionnairePage() {
       setHistory((prev) => [...prev, question.id]);
 
       // 2. Charger la question suivante
-      const nextRes = await fetch("/api/questionnaire/next-question", {
+      const nextRes = await fetch(`${API_URL}/api/questionnaire/next-question`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fileId }),
@@ -182,10 +184,10 @@ export default function QuestionnairePage() {
           Merci d'avoir rempli votre déclaration de santé. Vos réponses sont sauvegardées et chiffrées en toute sécurité.
         </p>
         <button
-          onClick={() => window.location.href = `/dossier?fileId=${fileId}`}
+          onClick={() => window.location.href = `/dossier/recap?fileId=${fileId}`}
           className="px-8 py-3.5 bg-[#0A2E5C] hover:bg-[#00275B] text-white font-semibold rounded-xl transition-colors shadow-sm cursor-pointer"
         >
-          Retourner au dossier
+          Voir le récapitulatif & signer
         </button>
       </div>
     );
@@ -211,6 +213,19 @@ export default function QuestionnairePage() {
       x: dir === "forward" ? "-100%" : "100%",
       opacity: 0,
     }),
+  };
+
+  const isPositiveAnswer = (type: string, val: any) => {
+    if (val === undefined || val === null || val === "") return false;
+    if (type === "yesno") return val === "oui";
+    if (type === "select") return val !== "jamais" && val !== "non" && val !== "non_applicable";
+    if (type === "multiselect") {
+      if (Array.isArray(val)) {
+        return val.length > 0 && !val.includes("aucun") && !val.includes("none");
+      }
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -277,7 +292,10 @@ export default function QuestionnairePage() {
                     onChange={(val) => {
                       handleValueChange(val);
                       // Auto-advance sur clic Oui/Non pour un parcours fluide
-                      setTimeout(() => handleNext(), 250);
+                      // SAUF si la question permet l'upload et que la réponse est positive
+                      if (!(question.allowUpload && val === "oui")) {
+                        setTimeout(() => handleNext(), 250);
+                      }
                     }}
                     sensitive={isSensitive}
                   />
@@ -329,6 +347,16 @@ export default function QuestionnairePage() {
                   />
                 )}
               </div>
+
+              {/* Dépôt de document facultatif si requis et réponse positive */}
+              {question.allowUpload && fileId && isPositiveAnswer(question.type, currentValue) && (
+                <div className="w-full flex justify-center mt-4">
+                  <DocumentUpload
+                    fileId={fileId}
+                    questionId={question.id}
+                  />
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

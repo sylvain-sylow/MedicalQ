@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
       options:       result.question.options,
       slider:        result.question.slider,
       textSensitive: result.question.textSensitive ?? false,
+      allowUpload:   result.question.allowUpload ?? false,
     },
     progress: result.progress,
   });
