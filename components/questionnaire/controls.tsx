@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 // --- Types ---
 export interface ControlProps<T = any> {
@@ -17,29 +18,33 @@ export interface ControlProps<T = any> {
 export function YesNoControl({ value, onChange, sensitive }: ControlProps<string>) {
   return (
     <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto my-6">
-      <button
+      <motion.button
         type="button"
         onClick={() => onChange("oui")}
-        className={`flex-1 py-6 px-8 rounded-2xl border-2 text-xl font-medium transition-all duration-200 flex flex-col items-center justify-center gap-2 cursor-pointer min-h-[100px] ${
+        whileTap={{ scale: 0.96 }}
+        whileHover={sensitive ? undefined : { y: -2 }}
+        className={`flex-1 py-6 px-8 rounded-2xl border-2 text-xl font-medium transition-colors duration-200 flex flex-col items-center justify-center gap-2 cursor-pointer min-h-[100px] ${
           value === "oui"
             ? "border-emerald-600 bg-emerald-50/50 text-emerald-950"
             : "border-stone-200 bg-white hover:border-stone-300 text-stone-700"
         }`}
       >
         <span className="text-2xl">Oui</span>
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
         type="button"
         onClick={() => onChange("non")}
-        className={`flex-1 py-6 px-8 rounded-2xl border-2 text-xl font-medium transition-all duration-200 flex flex-col items-center justify-center gap-2 cursor-pointer min-h-[100px] ${
+        whileTap={{ scale: 0.96 }}
+        whileHover={sensitive ? undefined : { y: -2 }}
+        className={`flex-1 py-6 px-8 rounded-2xl border-2 text-xl font-medium transition-colors duration-200 flex flex-col items-center justify-center gap-2 cursor-pointer min-h-[100px] ${
           value === "non"
             ? "border-rose-600 bg-rose-50/50 text-rose-950"
             : "border-stone-200 bg-white hover:border-stone-300 text-stone-700"
         }`}
       >
         <span className="text-2xl">Non</span>
-      </button>
+      </motion.button>
     </div>
   );
 }
@@ -194,11 +199,13 @@ export function GridControl({ value, onChange, options }: ControlProps<string[]>
           const isAucun = opt.value === "aucun";
 
           return (
-            <button
+            <motion.button
               key={opt.value}
               type="button"
               onClick={() => handleToggle(opt.value)}
-              className={`p-4 rounded-xl border-2 transition-all duration-150 flex flex-col items-center justify-center gap-3 text-center cursor-pointer min-h-[96px] ${
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ y: -2 }}
+              className={`p-4 rounded-xl border-2 transition-colors duration-150 flex flex-col items-center justify-center gap-3 text-center cursor-pointer min-h-[96px] ${
                 isSelected
                   ? isAucun
                     ? "border-stone-500 bg-stone-100 text-stone-900 font-medium"
@@ -206,11 +213,17 @@ export function GridControl({ value, onChange, options }: ControlProps<string[]>
                   : "border-stone-200 bg-white hover:border-stone-300 text-stone-600"
               }`}
             >
-              <span className="text-2xl select-none" role="img" aria-label={opt.label}>
+              <motion.span
+                className="text-2xl select-none"
+                role="img"
+                aria-label={opt.label}
+                animate={isSelected ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+                transition={{ duration: 0.35 }}
+              >
                 {getEmojiForIcon(opt.icon)}
-              </span>
+              </motion.span>
               <span className="text-sm font-medium">{opt.label}</span>
-            </button>
+            </motion.button>
           );
         })}
       </div>

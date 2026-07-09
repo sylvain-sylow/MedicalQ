@@ -13,6 +13,7 @@ import {
   TextControl,
 } from "@/components/questionnaire/controls";
 import { DocumentUpload } from "@/components/questionnaire/DocumentUpload";
+import { GamifiedProgress } from "@/components/questionnaire/GamifiedProgress";
 import { API_URL } from "@/lib/api/config";
 
 interface QuestionData {
@@ -159,6 +160,23 @@ export default function QuestionnairePage() {
     }
   };
 
+  // Navigation clavier : Entrée pour valider et avancer (sans piéger la saisie multiligne).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || e.shiftKey) return;
+      const target = e.target as HTMLElement | null;
+      if (target && target.tagName === "TEXTAREA") return;
+      const disabled = currentValue === undefined && question?.type !== "text";
+      if (!disabled) {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentValue, question]);
+
   // Rendu de l'état de chargement
   if (loading && !question) {
     return (
@@ -176,10 +194,34 @@ export default function QuestionnairePage() {
   if (done) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#FCFBF6] px-6 py-12 text-center">
-        <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-6 text-emerald-600 text-4xl shadow-sm border border-emerald-100">
-          ✓
+        <div className="relative mb-6">
+          {/* Éclats de célébration */}
+          {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <motion.span
+              key={angle}
+              className="absolute left-1/2 top-1/2 text-lg"
+              initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                x: Math.cos((angle * Math.PI) / 180) * 70,
+                y: Math.sin((angle * Math.PI) / 180) * 70,
+                scale: [0, 1, 0.6],
+              }}
+              transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
+            >
+              {angle % 120 === 0 ? "✨" : "🎉"}
+            </motion.span>
+          ))}
+          <motion.div
+            initial={{ scale: 0, rotate: -20 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 16 }}
+            className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 text-4xl shadow-sm border border-emerald-100"
+          >
+            ✓
+          </motion.div>
         </div>
-        <h1 className="text-3xl font-bold text-[#0A2E5C] mb-4">Questionnaire terminé</h1>
+        <h1 className="text-3xl font-bold text-[#0A2E5C] mb-4">Questionnaire terminé 🎊</h1>
         <p className="text-stone-600 max-w-md mb-8 leading-relaxed">
           Merci d'avoir rempli votre déclaration de santé. Vos réponses sont sauvegardées et chiffrées en toute sécurité.
         </p>
@@ -245,20 +287,7 @@ export default function QuestionnairePage() {
           </div>
         </div>
 
-        {progress && (
-          <div className="w-full">
-            <div className="flex justify-between text-xs font-medium text-stone-500 mb-1.5">
-              <span className="capitalize">Étape : {progress.stage.replace("_", " ")}</span>
-              <span>{progress.stageIndex} / {progress.stageTotalCount}</span>
-            </div>
-            <div className="w-full h-1.5 bg-stone-200/60 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#0A2E5C] transition-all duration-500"
-                style={{ width: `${(progress.stageIndex / progress.stageTotalCount) * 100}%` }}
-              />
-            </div>
-          </div>
-        )}
+        {progress && <GamifiedProgress progress={progress} sensitive={isSensitive} />}
       </header>
 
       {/* ─── Zone principale (Question + Contrôle) ─── */}
