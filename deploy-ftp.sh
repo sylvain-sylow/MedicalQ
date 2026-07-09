@@ -6,11 +6,13 @@
 
 set -e
 
-# Configuration FTP
-FTP_HOST="ftp.cluster121.hosting.ovh.net"
-FTP_USER="cormarinid"
-FTP_PASS="Sabenal!OVH!1"
-REMOTE_DIR="/" # Racine du site
+# Configuration FTP — AUCUN secret en dur (identifiants lus dans l'environnement).
+# ⚠️ L'ancien mot de passe était committé en clair dans ce fichier : il est présent
+#    dans l'historique git et DOIT être considéré comme compromis → à révoquer/roter.
+FTP_HOST="${FTP_HOST:-ftp.cluster121.hosting.ovh.net}"
+FTP_USER="${FTP_USER:?Définir FTP_USER dans l'environnement}"
+FTP_PASS="${FTP_PASS:?Définir FTP_PASS dans l'environnement}"
+REMOTE_DIR="${FTP_REMOTE_DIR:-/}" # Racine du site
 
 # URL de l'API backend de production (HDS / PostgreSQL dédié)
 # Par défaut, on utilise l'URL locale ou celle configurée
