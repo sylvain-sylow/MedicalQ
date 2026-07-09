@@ -4,6 +4,7 @@
 // Le test Playwright anti-fuite s'assure que cet endpoint n'est PAS accessible côté assuré
 
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { getPraticienSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/prisma";
 import { computeScoring } from "@/lib/scoring/stars";
@@ -46,19 +47,27 @@ export async function GET(request: NextRequest) {
   // Compute scoring
   const scoring = computeScoring(answersMap, {});
 
-  // Persist scoring to DB (upsert)
+  // Persist scoring to DB (upsert).
+  // globalScore de record = score AJUSTÉ (après pénalité de comorbidité) : c'est
+  // le chiffre de triage du médecin conseil. Le détail brut + comorbidités est
+  // conservé dans perTheme pour l'audit et l'affichage back-office.
+  const perThemePayload = {
+    themes: scoring.perTheme,
+    rawGlobalScore: scoring.globalScore,
+    comorbidities: scoring.comorbidities,
+  } as unknown as Prisma.InputJsonValue;
   await prisma.scoring.upsert({
     where: { fileId },
     create: {
       fileId,
-      perTheme: scoring.perTheme,
-      globalScore: scoring.globalScore,
-      engineVersion: scoring.engineVersion,
+      perTheme: perThemePayload,
+      globalScore: scoring.adjustedGlobalScore,
+      engineVersion: `${scoring.engineVersion}+${scoring.comorbidities.version}`,
     },
     update: {
-      perTheme: scoring.perTheme,
-      globalScore: scoring.globalScore,
-      engineVersion: scoring.engineVersion,
+      perTheme: perThemePayload,
+      globalScore: scoring.adjustedGlobalScore,
+      engineVersion: `${scoring.engineVersion}+${scoring.comorbidities.version}`,
       computedAt: new Date(),
     },
   });

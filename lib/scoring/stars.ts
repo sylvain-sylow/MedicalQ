@@ -1,11 +1,21 @@
 // lib/scoring/stars.ts
 import { rules, type StarRule, engineVersion } from "./config";
 import { computeIMC } from "../decision-tree/triggers";
+import {
+  assessComorbidities,
+  applyComorbidityPenalty,
+  type ComorbidityImpact,
+} from "./comorbidities";
 
 export interface ScoringResult {
   engineVersion: string;
   perTheme: Record<string, number>;
+  /** Score global brut = moyenne géométrique des rubriques actives (avant comorbidités). */
   globalScore: number;
+  /** Score global après pénalité de comorbidité (couples de pathologies défavorables). */
+  adjustedGlobalScore: number;
+  /** Détail de l'impact des comorbidités (back-office uniquement). */
+  comorbidities: ComorbidityImpact;
   ruleScores: Record<string, number>;
 }
 
@@ -381,10 +391,17 @@ export function computeScoring(
   const product = activeScores.reduce((acc, val) => acc * val, 1);
   const globalScore = Math.pow(product, 1 / activeScores.length);
 
+  // Couche de comorbidité (back-office uniquement) : les couples de pathologies
+  // les plus défavorables abaissent le score global au-delà de la moyenne géométrique.
+  const comorbidities = assessComorbidities(inputs, answers);
+  const adjustedGlobalScore = applyComorbidityPenalty(globalScore, comorbidities.totalPenalty);
+
   return {
     engineVersion,
     perTheme,
     globalScore,
+    adjustedGlobalScore,
+    comorbidities,
     ruleScores,
   };
 }
